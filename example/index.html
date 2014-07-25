@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+    <script src="../dist/ngMask.min.js"></script>
+  </head>
+  <boby ng-app="ngMask">
+    <h1>NgMask - The best mask!</h1>
+    <form name="form">
+      <fieldset>
+        <label>Date example</label>
+        <fieldset>
+          <label>MASK: 39/19/9999</label>
+          <br>
+          <input type="text" name="date"
+                 mask="39/19/9999"
+                 ng-model="date">
+
+          <p>Model: {{date}}</p>
+          <p>Field Error: {{form.date.$error}}</p>
+        </fieldset>
+        <fieldset>
+          <label>MASK: 39/19/9999 CLEAN: TRUE</label>
+          <br>
+          <input type="text" name="date1"
+                 mask="39/19/9999"
+                 clean="true"
+                 ng-model="date1">
+
+          <p>Model: {{date1}}</p>
+          <p>Field Error: {{form.date1.$error}}</p>
+        </fieldset>
+        <fieldset>
+          <label>MASK: 39/19/9999 CLEAN: FALSE</label>
+          <br>
+          <input type="text" name="date2"
+                 mask="39/19/9999"
+                 clean="false"
+                 ng-model="date2">
+
+          <p>Model: {{date2}}</p>
+          <p>Field Error: {{form.date2.$error}}</p>
+        </fieldset>
+      </fieldset>
+      <br>
+      <fieldset>
+        <label>CPF example</label>
+        <fieldset>
+          <label>MASK: 999.999.999-99</label>
+          <br>
+          <input type="text" name="cpf1"
+                 mask="999.999.999-99"
+                 ng-model="cpf1">
+
+          <p>Model: {{cpf1}}</p>
+          <p>Field Error: {{form.cpf1.$error}}</p>
+        </fieldset>
+        <fieldset>
+          <label>MASK: 999.999.999-99 CLEAN: TRUE</label>
+          <br>
+          <input type="text" name="cpf3"
+                 mask="999.999.999-99"
+                 clean="true"
+                 ng-model="cpf3">
+
+          <p>Model: {{cpf3}}</p>
+          <p>Field Error: {{form.cpf3.$error}}</p>
+        </fieldset>
+        <fieldset>
+          <label>MASK: 999.999.999-99 CLEAN: FALSE</label>
+          <br>
+          <input type="text" name="cpf2"
+                 mask="999.999.999-99"
+                 clean="false"
+                 ng-model="cpf2">
+
+          <p>Model: {{cpf2}}</p>
+          <p>Field Error: {{form.cpf2.$error}}</p>
+        </fieldset>
+      </fieldset>
+      <br>
+      <fieldset>
+        <label>Numbers</label>
+        <fieldset>
+          <label>MASK: 9 REPEAT: 5</label>
+          <br>
+          <input type="text" name="repeat"
+                 mask="9"
+                 repeat="5"
+                 ng-model="repeat">
+
+          <p>Model: {{repeat}}</p>
+          <p>Field Error: {{form.repeat.$error}}</p>
+        </fieldset>
+        <fieldset>
+          <label>MASK: 99999</label>
+          <br>
+          <input type="text" name="dontrepeat"
+                 mask="99999"
+                 ng-model="dontrepeat">
+
+          <p>Model: {{dontrepeat}}</p>
+          <p>Field Error: {{form.dontrepeat.$error}}</p>
+        </fieldset>
+      </fieldset>
+    </form>
+  </boby>
+</html>
