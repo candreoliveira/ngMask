@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="PhantomJS 1.9.7 (Linux)" package="" timestamp="2014-07-26T01:47:19" id="0" hostname="carlosandre" tests="1" errors="0" failures="0" time="0.008">
+  <testsuite name="PhantomJS 1.9.7 (Linux)" package="" timestamp="2014-07-26T02:29:03" id="0" hostname="carlosandre" tests="2" errors="0" failures="0" time="0.01">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.7 Safari/534.34"/>
     </properties>
-    <testcase name="testing" time="0.008" classname="PhantomJS 1.9.7 (Linux).ComparatorService"/>
+    <testcase name="should return min lenght of two arrays" time="0.009" classname="PhantomJS 1.9.7 (Linux).ComparatorService Min function"/>
+    <testcase name="should return max lenght of two arrays" time="0.001" classname="PhantomJS 1.9.7 (Linux).ComparatorService Max function"/>
     <system-out><![CDATA[
 ]]></system-out>
     <system-err/>
