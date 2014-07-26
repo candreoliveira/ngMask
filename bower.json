@@ -1,0 +1,28 @@
+{
+  "name": "ngMask",
+  "version": "0.1.0",
+  "homepage": "https://github.com/candreoliveira/ngMask",
+  "authors": [
+    "Carlos Oliveira <candreoliveira@gmail.com>"
+  ],
+  "description": "Best ngMask for AngularJS!",
+  "moduleType": [
+    "globals",
+    "node",
+    "yui"
+  ],
+  "keywords": [
+    "angular",
+    "mask",
+    "ngMask",
+    "best"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
