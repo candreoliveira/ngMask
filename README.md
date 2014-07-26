@@ -3,4 +3,5 @@ ngMask [![Build Status](https://travis-ci.org/candreoliveira/ngMask.svg)](https:
 
 ## Best AngularJS mask alternative!
 
-TODO: docs
+### Examples
+[How to use ngMask](http://candreoliveira.github.io/#/ngMask)
