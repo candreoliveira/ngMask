@@ -2,5 +2,5 @@ language: node_js
 node_js:
   - "0.11"
 before_script:
-  - npm install -g grunt grunt-cli
+  - npm install -g grunt grunt-cli bower
   - bower install
