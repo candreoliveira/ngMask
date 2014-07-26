@@ -21,7 +21,8 @@
     "time-grunt": "^0.3.1",
     "grunt-html2md": "~0.1.1",
     "karma-chai": "~0.1.0",
-    "karma-chai-plugins": "~0.2.1"
+    "karma-chai-plugins": "~0.2.1",
+    "grunt-release": "~0.7.0"
   },
   "engines": {
     "node": ">=0.10.0"

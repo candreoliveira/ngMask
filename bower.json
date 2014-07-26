@@ -5,6 +5,7 @@
   "authors": [
     "Carlos Oliveira <candreoliveira@gmail.com>"
   ],
+  "main": "dist/ngMask.min.js",
   "description": "Best ngMask for AngularJS!",
   "moduleType": [
     "globals",
