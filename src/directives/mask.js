@@ -69,13 +69,14 @@ angular.module('ngMask')
             controller.$parsers.push(parser);
             
             // register the watch to observe remote loading or promised data
-           var $watcher = $scope.$watch($attrs.ngModel, function (newValue, oldValue) {
+            var $watcher = $scope.$watch($attrs.ngModel, function (newValue, oldValue) {
+
                 // empty data, loaded after some promise are resolved.
                 if (angular.isUndefined(oldValue) && angular.isDefined(newValue)) {
                     parser(newValue);
                     $watcher();
                 }
-  
+
                 // start input value with some data from controller.
                 if (angular.isDefined(oldValue) && angular.isDefined(newValue)) {
                     parser(newValue);
