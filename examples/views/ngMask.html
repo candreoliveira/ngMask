@@ -1,0 +1,301 @@
+<form name="form">
+  <div class="row">
+    <h1>The Best NgMask!</h1>
+  </div>
+  <hr>
+
+  <div class="row">
+    <h2>Avaiable Patterns</h2>
+    <div class="col-xs-2">
+      <ul>
+        <li><strong>'9'</strong> => /[0-9]/ </li>
+        <li><strong>'8'</strong> => /[0-8]/ </li>
+        <li><strong>'7'</strong> => /[0-7]/ </li>
+        <li><strong>'6'</strong> => /[0-6]/ </li>
+        <li><strong>'5'</strong> => /[0-5]/ </li>
+        <li><strong>'4'</strong> => /[0-4]/ </li>
+      </ul>
+    </div>
+    <div class="col-xs-2">
+      <ul>
+        <li><strong>'3'</strong> => /[0-3]/ </li>
+        <li><strong>'2'</strong> => /[0-2]/ </li>
+        <li><strong>'1'</strong> => /[0-1]/ </li>
+        <li><strong>'0'</strong> => /[0]/   </li>
+        <li><strong>'*'</strong> => /./     </li>
+        <li><strong>'w'</strong> => /\w/    </li>
+      </ul>
+    </div>
+    <div class="col-xs-2">
+      <ul>
+        <li><strong>'W'</strong> => /\w/ </li>
+        <li><strong>'d'</strong> => /\d/ </li>
+        <li><strong>'D'</strong> => /\D/ </li>
+        <li><strong>'s'</strong> => /\s/ </li>
+        <li><strong>'S'</strong> => /\S/ </li>
+        <li><strong>'b'</strong> => /\b/ </li>
+      </ul>
+    </div>
+    <div class="col-xs-6">
+      <ul>
+        <li><strong>'A'</strong> => /[A-Z]/                                                  </li>
+        <li><strong>'a'</strong> => /[a-z]/                                                  </li>
+        <li><strong>'Z'</strong> => /[A-ZÇÀÁÂÃÈÉÊẼÌÍÎĨÒÓÔÕÙÚÛŨ]/                             </li>
+        <li><strong>'z'</strong> => /[a-zçáàãâéèêẽíìĩîóòôõúùũüû]/                            </li>
+        <li><strong>'@'</strong> => /[a-zA-Z]/                                               </li>
+        <li><strong>'#'</strong> => /[a-zA-ZçáàãâéèêẽíìĩîóòôõúùũüûÇÀÁÂÃÈÉÊẼÌÍÎĨÒÓÔÕÙÚÛŨ]/    </li>
+        <li><strong>'%'</strong> => /[0-9a-zA-zçáàãâéèêẽíìĩîóòôõúùũüûÇÀÁÂÃÈÉÊẼÌÍÎĨÒÓÔÕÙÚÛŨ]/ </li>
+      </ul>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <h2>Date example</h2>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 39/19/9999</label>
+        <br>
+        <input type="text" name="date"
+               mask="39/19/9999"
+               ng-model="date">
+
+        <p>Model: {{date}}</p>
+        <p>Field Error: {{form.date.$error}}</p>
+        <code>
+          &lt;input type="text" name="date"
+               mask="39/19/9999"
+               ng-model="date"&gt;
+        </code>
+      </fieldset>
+    </div>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 39/19/9999 CLEAN: TRUE</label>
+        <br>
+        <input type="text" name="date1"
+               mask="39/19/9999"
+               clean="true"
+               ng-model="date1">
+
+        <p>Model: {{date1}}</p>
+        <p>Field Error: {{form.date1.$error}}</p>
+        <code>
+          &lt;input type="text" name="date1"
+               mask="39/19/9999"
+               clean="true"
+               ng-model="date1"&gt;
+        </code>
+      </fieldset>
+    </div>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 39/19/9999 CLEAN: FALSE</label>
+        <br>
+        <input type="text" name="date2"
+               mask="39/19/9999"
+               clean="false"
+               ng-model="date2">
+
+        <p>Model: {{date2}}</p>
+        <p>Field Error: {{form.date2.$error}}</p>
+        <code>
+          &lt;input type="text" name="date2"
+               mask="39/19/9999"
+               clean="false"
+               ng-model="date2"&gt;
+        </code>
+      </fieldset>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <h2>CPF example</h2>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 999.999.999-99</label>
+        <br>
+        <input type="text" name="cpf1"
+               mask="999.999.999-99"
+               ng-model="cpf1">
+
+        <p>Model: {{cpf1}}</p>
+        <p>Field Error: {{form.cpf1.$error}}</p>
+        <code>
+          &lt;input type="text" name="cpf1"
+               mask="999.999.999-99"
+               ng-model="cpf1"&gt;
+        </code>
+      </fieldset>
+    </div>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 999.999.999-99 CLEAN: TRUE</label>
+        <br>
+        <input type="text" name="cpf3"
+               mask="999.999.999-99"
+               clean="true"
+               ng-model="cpf3">
+
+        <p>Model: {{cpf3}}</p>
+        <p>Field Error: {{form.cpf3.$error}}</p>
+        <code>
+          &lt;input type="text" name="cpf3"
+               mask="999.999.999-99"
+               clean="true"
+               ng-model="cpf3"&gt;
+        </code>
+      </fieldset>
+    </div>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 999.999.999-99 CLEAN: FALSE</label>
+        <br>
+        <input type="text" name="cpf2"
+               mask="999.999.999-99"
+               clean="false"
+               ng-model="cpf2">
+
+        <p>Model: {{cpf2}}</p>
+        <p>Field Error: {{form.cpf2.$error}}</p>
+        <code>
+          &lt;input type="text" name="cpf2"
+               mask="999.999.999-99"
+               clean="false"
+               ng-model="cpf2"&gt;
+        </code>
+      </fieldset>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <h2>Numbers example</h2>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 9 REPEAT: 5</label>
+        <br>
+        <input type="text" name="repeat"
+               mask="9"
+               repeat="5"
+               ng-model="repeat">
+
+        <p>Model: {{repeat}}</p>
+        <p>Field Error: {{form.repeat.$error}}</p>
+        <code>
+          &lt;input type="text" name="repeat"
+               mask="9"
+               repeat="5"
+               ng-model="repeat"&gt;
+        </code>
+      </fieldset>
+    </div>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 99999</label>
+        <br>
+        <input type="text" name="dontrepeat"
+               mask="99999"
+               ng-model="dontrepeat">
+
+        <p>Model: {{dontrepeat}}</p>
+        <p>Field Error: {{form.dontrepeat.$error}}</p>
+        <code>
+          &lt;input type="text" name="dontrepeat"
+               mask="99999"
+               ng-model="dontrepeat"&gt;
+        </code>
+      </fieldset>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <h2>Default value example</h2>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 39/19/9999</label>
+        <br>
+        <input type="text" name="dateDefault"
+               mask="39/19/9999"
+               ng-value="30/09/1986"
+               ng-model="dateDefault">
+
+        <p>Model: {{dateDefault}}</p>
+        <p>Field Error: {{form.dateDefault.$error}}</p>
+        <code>
+          &lt;input type="text" name="dateDefault"
+               mask="39/19/9999"
+               ng-value="30/09/1986"
+               ng-model="dateDefault"&gt;
+        </code>
+      </fieldset>
+    </div>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 999.999.999-99 CLEAN: FALSE</label>
+        <br>
+        <input type="text" name="cpfDefault"
+               mask="999.999.999-99"
+               clean="false"
+               ng-value="a8799900105"
+               ng-model="cpfDefault">
+
+        <p>Model: {{cpfDefault}}</p>
+        <p>Field Error: {{form.cpfDefault.$error}}</p>
+        <code>
+          &lt;input type="text" name="cpfDefault"
+               mask="999.999.999-99"
+               clean="false"
+               ng-value="a8799900105"
+               ng-model="cpfDefault"&gt;
+        </code>
+      </fieldset>
+    </div>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 9 REPEAT: 5</label>
+        <br>
+        <input type="text" name="numberDefault"
+               mask="9"
+               repeat="5"
+               ng-value="12345"
+               ng-model="numberDefault">
+
+        <p>Model: {{numberDefault}}</p>
+        <p>Field Error: {{form.numberDefault.$error}}</p>
+        <code>
+          &lt;input type="text" name="numberDefault"
+               mask="9"
+               repeat="5"
+               ng-value="12349"
+               ng-model="numberDefault"&gt;
+        </code>
+      </fieldset>
+    </div>
+  </div>
+  <hr>
+
+  <!-- <div class="row">
+    <h2>Date example</h2>
+    <div class="col-xs-4">
+      <fieldset>
+        <label>MASK: 39/19/9999</label>
+        <br>
+        <input type="text" name="date"
+               mask="39/19/9999"
+               ng-value="39/19/9999"
+               ng-model="date">
+
+        <p>Model: {{date}}</p>
+        <p>Field Error: {{form.date.$error}}</p>
+        <code>
+          &lt;input type="text" name="date"
+               mask="39/19/9999"
+               ng-model="date"&gt;
+        </code>
+      </fieldset>
+    </div>
+  </div> -->
+</form>

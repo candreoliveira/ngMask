@@ -10,6 +10,6 @@ module.exports = {
       '<%= yeoman.app %>/services/patternService.js',
       '<%= yeoman.app %>/services/selectorService.js'
     ],
-    dest: '<%= yeoman.dist %>/built.js',
+    dest: '<%= yeoman.dist %>/ngMask.js',
   },
 };

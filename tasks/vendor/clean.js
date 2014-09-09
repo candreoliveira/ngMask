@@ -11,7 +11,7 @@ module.exports = {
     files: [{
       dot: true,
       src: [
-        '<%= yeoman.dist %>/built.js'
+        '<%= yeoman.dist %>/ngMask.js'
       ]
     }]
   }
