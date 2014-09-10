@@ -60,19 +60,29 @@ angular.module('ngMask')
               SelectorService.setCaretPosition(this, mask, this.value, patterns);
             });
 
-            // if code is queued using $evalAsync from a directive, it should run after the DOM has been manipulated by Angular, but before the browser renders
-            // if code is queued using $evalAsync from a controller, it should run before the DOM has been manipulated by Angular (and before the browser renders) -- rarely do you want this
-            // if code is queued using $timeout, it should run after the DOM has been manipulated by Angular, and after the browser renders (which may cause flicker in some cases)
-            $scope.$evalAsync(function( $scope ) {
-              controller.$setViewValue($attrs.ngValue, 'input');
-              controller.$render();
+            controller.$parsers.push(parser);
+
+            // Register the watch to observe remote loading or promised data
+            // Deregister calling returned function
+            var watcher = $scope.$watch($attrs.ngModel, function (newValue, oldValue) {
+              if (angular.isDefined(newValue)) {
+                parser(newValue);
+                watcher();
+              }
             });
 
-            controller.$parsers.push(parser);
+            // $evalAsync from a directive, it should run after the DOM has been manipulated by Angular, but before the browser renders
+            // $evalAsync from a controller, it should run before the DOM has been manipulated by Angular (and before the browser renders) -- rarely do you want this
+            // using $timeout, it should run after the DOM has been manipulated by Angular, and after the browser renders (which may cause flicker in some cases)
+            if($attrs.ngValue) {
+              $scope.$evalAsync(function( $scope ) {
+                parser($attrs.ngValue);
+              });
+            }
           }
         }
       }
-    };
+    }
   }]);'use strict';
 
 angular.module('ngMask')

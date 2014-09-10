@@ -58,33 +58,27 @@ angular.module('ngMask')
               SelectorService.setCaretPosition(this, mask, this.value, patterns);
             });
 
-            // if code is queued using $evalAsync from a directive, it should run after the DOM has been manipulated by Angular, but before the browser renders
-            // if code is queued using $evalAsync from a controller, it should run before the DOM has been manipulated by Angular (and before the browser renders) -- rarely do you want this
-            // if code is queued using $timeout, it should run after the DOM has been manipulated by Angular, and after the browser renders (which may cause flicker in some cases)
-            $scope.$evalAsync(function( $scope ) {
-              controller.$setViewValue($attrs.ngValue, 'input');
-              controller.$render();
-            });
-
             controller.$parsers.push(parser);
-            
-            // register the watch to observe remote loading or promised data
-            var $watcher = $scope.$watch($attrs.ngModel, function (newValue, oldValue) {
 
-                // empty data, loaded after some promise are resolved.
-                if (angular.isUndefined(oldValue) && angular.isDefined(newValue)) {
-                    parser(newValue);
-                    $watcher();
-                }
-
-                // start input value with some data from controller.
-                if (angular.isDefined(oldValue) && angular.isDefined(newValue)) {
-                    parser(newValue);
-                    $watcher();
-                }
+            // Register the watch to observe remote loading or promised data
+            // Deregister calling returned function
+            var watcher = $scope.$watch($attrs.ngModel, function (newValue, oldValue) {
+              if (angular.isDefined(newValue)) {
+                parser(newValue);
+                watcher();
+              }
             });
+
+            // $evalAsync from a directive, it should run after the DOM has been manipulated by Angular, but before the browser renders
+            // $evalAsync from a controller, it should run before the DOM has been manipulated by Angular (and before the browser renders) -- rarely do you want this
+            // using $timeout, it should run after the DOM has been manipulated by Angular, and after the browser renders (which may cause flicker in some cases)
+            if($attrs.ngValue) {
+              $scope.$evalAsync(function( $scope ) {
+                parser($attrs.ngValue);
+              });
+            }
           }
         }
       }
-    };
+    }
   }]);
