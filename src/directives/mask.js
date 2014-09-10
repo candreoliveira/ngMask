@@ -74,7 +74,8 @@ angular.module('ngMask')
             // using $timeout, it should run after the DOM has been manipulated by Angular, and after the browser renders (which may cause flicker in some cases)
             if($attrs.ngValue) {
               $scope.$evalAsync(function( $scope ) {
-                parser($attrs.ngValue);
+                controller.$setViewValue($attrs.ngValue, 'input');
+                controller.$render();
               });
             }
           }
