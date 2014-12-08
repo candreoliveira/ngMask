@@ -1,4 +1,4 @@
-ngMask [![Build Status](https://travis-ci.org/candreoliveira/ngMask.svg)](https://travis-ci.org/candreoliveira/ngMask) [![Code Climate](https://codeclimate.com/github/candreoliveira/ngMask/badges/gpa.svg)](https://codeclimate.com/github/candreoliveira/ngMask) [![Test Coverage](https://codeclimate.com/github/candreoliveira/ngMask/badges/coverage.svg)](https://codeclimate.com/github/candreoliveira/ngMask)
+ngMask [![GitHub version](https://badge.fury.io/gh/candreoliveira%2FngMask.svg)](http://badge.fury.io/gh/candreoliveira%2FngMask) [![Bower version](https://badge.fury.io/bo/angular-mask.svg)](http://badge.fury.io/bo/angular-mask) [![Build Status](https://travis-ci.org/candreoliveira/ngMask.svg)](https://travis-ci.org/candreoliveira/ngMask) ![Dependencies](https://david-dm.org/candreoliveira/ngMask.png) [![Code Climate](https://codeclimate.com/github/candreoliveira/ngMask/badges/gpa.svg)](https://codeclimate.com/github/candreoliveira/ngMask) [![Test Coverage](https://codeclimate.com/github/candreoliveira/ngMask/badges/coverage.svg)](https://codeclimate.com/github/candreoliveira/ngMask)
 ======
 
 ## Best AngularJS mask alternative!
