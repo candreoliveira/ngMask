@@ -8,7 +8,7 @@ module.exports = {
     createTag: true,
     tagName: '%VERSION%',
     tagMessage: 'Version %VERSION%',
-    push: true,
+    push: false,
     pushTo: 'origin',
     gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
   }
