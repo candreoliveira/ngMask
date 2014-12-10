@@ -19,34 +19,34 @@
 **With Bower**
 * Install the dependency:
 
-   ```
+   ```javascript
    bower install angular-mask --save
    ```
 * Add ngMask.min.js to your code:
 
-   ```
+   ```html
    <script src='bower_components/angular-mask/dist/ngMask.min.js'></script>
    ```
 * Include module dependency:
 
-   ```
+   ```javascript
    angular.module('yourApp', ['ngMask']);
    ```
 
 **Whitout Bower:**
 * Download the ngMask.min.js file from dist folder:
 
-   ```
+   ```shell
    wget https://raw.githubusercontent.com/candreoliveira/ngMask/master/dist/ngMask.min.js
    ```
 * Add ngMask.min.js to your code:
 
-   ```
+   ```html
    <script src='ngMask.min.js'></script>
    ```
 * Include module dependency:
 
-   ```
+   ```javascript
    angular.module('yourApp', ['ngMask']);
    ```
 
@@ -56,25 +56,25 @@
 
 1. **Add ngMask plugin after your AngularJS.**
 
-   ```
+   ```html
    <script src="angular.min.js"></script>
    <script src='ngMask.min.js'></script>
    ```
 2. **Add ngMask module dependency to your app.**
 
-   ```
+   ```javascript
    angular.module('yourApp', ['ngMask']);
    ```
 3. **Use the avaiable patterns to create your mask. Set the mask attribute.**
 
-   ```
+   ```html
    <input type='text' ng-model='maskModel' mask='39/19/9999' />
    ```
    - "/" isn't a pattern. It's considered a divisor. Every divisor is automatically written by ngMask. [Check all available patterns here.](https://github.com/candreoliveira/ngMask/#available-patterns)
 
 4. **Adjust your mask options.**
 
-   ```
+   ```html
    <input type='text' ng-model='maskModel ng-value='0/3/9' mask='3/9?' mask-repeat='2' mask-restrict='accept' mask-clean='true' mask-validate='false' mask-limit='false' />
    ```
    - Generated mask '3/9?3/9?'. [Check all available options here.](https://github.com/candreoliveira/ngMask/#options)
