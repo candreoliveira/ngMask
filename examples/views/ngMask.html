@@ -426,10 +426,11 @@
       <h3>Phone example</h3>
       <div class="col-xs-12 col-sm-4">
         <fieldset>
-          <label>MASK: (999) 999-9999</label>
+          <label>MASK: (999) 999-9999 CLEAN: TRUE</label>
           <br>
           <input type="text" name="phone"
                  mask="(999) 999-9999"
+                 clean="true"
                  ng-model="phone">
 
           <p>Model: {{phone}}</p>
@@ -438,6 +439,7 @@
           <code>
             &lt;input type="text" name="phone"
                  mask="(999) 999-9999"
+                 clean="true"
                  ng-model="phone"&gt;
           </code>
         </fieldset>
@@ -466,7 +468,7 @@
           <br>
           <input type="text" name="phone3"
                  mask="+99 99 9?9999-9999"
-                 retrict="reject"
+                 restrict="reject"
                  ng-model="phone3">
 
           <p>Model: {{phone3}}</p>
@@ -474,8 +476,8 @@
           <p>Field Valid: {{form.phone3.$valid}}</p>
           <code>
             &lt;input type="text" name="phone3"
-                 mask="phone3"
-                 clean="false"
+                 mask="+99 99 9?9999-9999"
+                 restrict="reject"
                  ng-model="phone3"&gt;
           </code>
         </fieldset>
