@@ -13,6 +13,7 @@
 
           var maskService = MaskService.create();
           var timeout;
+          var promise;
 
           function setSelectionRange(selectionStart){
             if (typeof selectionStart !== 'number') {
@@ -43,7 +44,7 @@
 
           return {
             pre: function($scope, $element, $attrs, controller) {
-              maskService.generateRegex({
+              promise = maskService.generateRegex({
                 mask: $attrs.mask,
                 // repeat mask expression n times
                 repeat: ($attrs.repeat || $attrs.maskRepeat),
@@ -62,114 +63,116 @@
               });
             },
             post: function($scope, $element, $attrs, controller) {
-              // get initial options
-              var options = maskService.getOptions();
+              promise.then(function() {
+                // get initial options
+                var options = maskService.getOptions();
 
-              function parseViewValue(value) {
-                // get view value object
-                var viewValue = maskService.getViewValue(value);
+                function parseViewValue(value) {
+                  // get view value object
+                  var viewValue = maskService.getViewValue(value);
 
-                // get mask without question marks
-                var maskWithoutOptionals = options['maskWithoutOptionals'] || '';
+                  // get mask without question marks
+                  var maskWithoutOptionals = options['maskWithoutOptionals'] || '';
 
-                // get view values capped
-                // used on view
-                var viewValueWithDivisors = viewValue.withDivisors(true);
-                // used on model
-                var viewValueWithoutDivisors = viewValue.withoutDivisors(true);
+                  // get view values capped
+                  // used on view
+                  var viewValueWithDivisors = viewValue.withDivisors(true);
+                  // used on model
+                  var viewValueWithoutDivisors = viewValue.withoutDivisors(true);
 
-                try {
-                  // get current regex
-                  var regex = maskService.getRegex(viewValueWithDivisors.length - 1);
-                  var fullRegex = maskService.getRegex(maskWithoutOptionals.length - 1);
+                  try {
+                    // get current regex
+                    var regex = maskService.getRegex(viewValueWithDivisors.length - 1);
+                    var fullRegex = maskService.getRegex(maskWithoutOptionals.length - 1);
 
-                  // current position is valid
-                  var validCurrentPosition = regex.test(viewValueWithDivisors) || fullRegex.test(viewValueWithDivisors);
+                    // current position is valid
+                    var validCurrentPosition = regex.test(viewValueWithDivisors) || fullRegex.test(viewValueWithDivisors);
 
-                  // difference means for select option
-                  var diffValueAndViewValueLengthIsOne = (value.length - viewValueWithDivisors.length) === 1;
-                  var diffMaskAndViewValueIsGreaterThanZero = (maskWithoutOptionals.length - viewValueWithDivisors.length) > 0;
+                    // difference means for select option
+                    var diffValueAndViewValueLengthIsOne = (value.length - viewValueWithDivisors.length) === 1;
+                    var diffMaskAndViewValueIsGreaterThanZero = (maskWithoutOptionals.length - viewValueWithDivisors.length) > 0;
 
-                  if (options.restrict !== 'accept') {
-                    if (options.restrict === 'select' && (!validCurrentPosition || diffValueAndViewValueLengthIsOne)) {
-                      var lastCharInputed = value[(value.length-1)];
-                      var lastCharGenerated = viewValueWithDivisors[(viewValueWithDivisors.length-1)];
+                    if (options.restrict !== 'accept') {
+                      if (options.restrict === 'select' && (!validCurrentPosition || diffValueAndViewValueLengthIsOne)) {
+                        var lastCharInputed = value[(value.length-1)];
+                        var lastCharGenerated = viewValueWithDivisors[(viewValueWithDivisors.length-1)];
 
-                      if ((lastCharInputed !== lastCharGenerated) && diffMaskAndViewValueIsGreaterThanZero) {
-                        viewValueWithDivisors = viewValueWithDivisors + lastCharInputed;
+                        if ((lastCharInputed !== lastCharGenerated) && diffMaskAndViewValueIsGreaterThanZero) {
+                          viewValueWithDivisors = viewValueWithDivisors + lastCharInputed;
+                        }
+
+                        var wrongPosition = maskService.getFirstWrongPosition(viewValueWithDivisors);
+                        if (angular.isDefined(wrongPosition)) {
+                          setSelectionRange(wrongPosition);
+                        }
+                      } else if (options.restrict === 'reject' && !validCurrentPosition) {
+                        viewValue = maskService.removeWrongPositions(viewValueWithDivisors);
+                        viewValueWithDivisors = viewValue.withDivisors(true);
+                        viewValueWithoutDivisors = viewValue.withoutDivisors(true);
+
+                        // setSelectionRange(viewValueWithDivisors.length);
                       }
+                    }
 
-                      var wrongPosition = maskService.getFirstWrongPosition(viewValueWithDivisors);
-                      if (angular.isDefined(wrongPosition)) {
-                        setSelectionRange(wrongPosition);
+                    if (!options.limit) {
+                      viewValueWithDivisors = viewValue.withDivisors(false);
+                      viewValueWithoutDivisors = viewValue.withoutDivisors(false);
+                    }
+
+                    // Set validity
+                    if (options.validate && controller.$dirty) {
+                      // if (validCurrentPosition && (maskWithoutOptionals.length === viewValueWithDivisors.length)) {
+                      if (fullRegex.test(viewValueWithDivisors)) {
+                        controller.$setValidity('mask', true);
+                      } else {
+                        controller.$setValidity('mask', false);
                       }
-                    } else if (options.restrict === 'reject' && !validCurrentPosition) {
-                      viewValue = maskService.removeWrongPositions(viewValueWithDivisors);
-                      viewValueWithDivisors = viewValue.withDivisors(true);
-                      viewValueWithoutDivisors = viewValue.withoutDivisors(true);
-
-                      // setSelectionRange(viewValueWithDivisors.length);
                     }
-                  }
 
-                  if (!options.limit) {
-                    viewValueWithDivisors = viewValue.withDivisors(false);
-                    viewValueWithoutDivisors = viewValue.withoutDivisors(false);
-                  }
-
-                  // Set validity
-                  if (options.validate && controller.$dirty) {
-                    // if (validCurrentPosition && (maskWithoutOptionals.length === viewValueWithDivisors.length)) {
-                    if (fullRegex.test(viewValueWithDivisors)) {
-                      controller.$setValidity('mask', true);
-                    } else {
-                      controller.$setValidity('mask', false);
+                    // Update view and model values
+                    if(value !== viewValueWithDivisors){
+                      controller.$setViewValue(angular.copy(viewValueWithDivisors), 'input');
+                      controller.$render();
                     }
+                  } catch (e) {
+                    $log.error('[mask - parseViewValue]');
+                    throw e;
                   }
 
-                  // Update view and model values
-                  if(value !== viewValueWithDivisors){
-                    controller.$setViewValue(angular.copy(viewValueWithDivisors), 'input');
-                    controller.$render();
+                  // Update model, can be different of view value
+                  if (options.clean) {
+                    return viewValueWithoutDivisors;
+                  } else {
+                    return viewValueWithDivisors;
                   }
-                } catch (e) {
-                  $log.error('[mask - parseViewValue]');
-                  throw e;
                 }
 
-                // Update model, can be different of view value
-                if (options.clean) {
-                  return viewValueWithoutDivisors;
-                } else {
-                  return viewValueWithDivisors;
-                }
-              }
+                controller.$parsers.push(parseViewValue);
 
-              controller.$parsers.push(parseViewValue);
-
-              $element.on('click input paste keyup', function() {
-                parseViewValue($element.val());
-                $scope.$apply();
-              });
-
-              // Register the watch to observe remote loading or promised data
-              // Deregister calling returned function
-              var watcher = $scope.$watch($scope.ngModel, function (newValue, oldValue) {
-                if (angular.isDefined(newValue)) {
-                  parseViewValue(newValue);
-                  watcher();
-                }
-              });
-
-              // $evalAsync from a directive
-              // it should run after the DOM has been manipulated by Angular
-              // but before the browser renders
-              if(options.value) {
-                $scope.$evalAsync(function($scope) {
-                  controller.$setViewValue(angular.copy(options.value), 'input');
-                  controller.$render();
+                $element.on('click input paste keyup', function() {
+                  parseViewValue($element.val());
+                  $scope.$apply();
                 });
-              }
+
+                // Register the watch to observe remote loading or promised data
+                // Deregister calling returned function
+                var watcher = $scope.$watch($scope.ngModel, function (newValue, oldValue) {
+                  if (angular.isDefined(newValue)) {
+                    parseViewValue(newValue);
+                    watcher();
+                  }
+                });
+
+                // $evalAsync from a directive
+                // it should run after the DOM has been manipulated by Angular
+                // but before the browser renders
+                if(options.value) {
+                  $scope.$evalAsync(function($scope) {
+                    controller.$setViewValue(angular.copy(options.value), 'input');
+                    controller.$render();
+                  });
+                }
+              });
             }
           }
         }

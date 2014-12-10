@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="PhantomJS 1.9.7 (Linux)" package="" timestamp="2014-07-26T05:17:09" id="0" hostname="carlosandre" tests="7" errors="0" failures="0" time="0.02">
+  <testsuite name="PhantomJS 1.9.8 (Linux)" package="" timestamp="2014-12-10T14:03:32" id="0" hostname="carlosandre" tests="4" errors="0" failures="0" time="0.021">
     <properties>
-      <property name="browser.fullName" value="Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.7 Safari/534.34"/>
+      <property name="browser.fullName" value="Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34"/>
     </properties>
-    <testcase name="should return min lenght of two arrays" time="0.008" classname="PhantomJS 1.9.7 (Linux).ComparatorService Min function"/>
-    <testcase name="should return max lenght of two arrays" time="0.002" classname="PhantomJS 1.9.7 (Linux).ComparatorService Max function"/>
-    <testcase name="should set focus and apply range" time="0.002" classname="PhantomJS 1.9.7 (Linux).SelectorService SetSelectionRange function"/>
-    <testcase name="should call createTextRange" time="0.004" classname="PhantomJS 1.9.7 (Linux).SelectorService SetSelectionRange function"/>
-    <testcase name="should set apply caret" time="0.002" classname="PhantomJS 1.9.7 (Linux).SelectorService setCaretPosition function"/>
-    <testcase name="should set apply caret" time="0.001" classname="PhantomJS 1.9.7 (Linux).SelectorService setCaretPosition function"/>
-    <testcase name="should set apply caret" time="0.001" classname="PhantomJS 1.9.7 (Linux).SelectorService setCaretPosition function"/>
+    <testcase name="should create new instance of maskService" time="0.009" classname="PhantomJS 1.9.8 (Linux).MaskService create function"/>
+    <testcase name="should create regex, divisors, options, indexes - mask: 9 repeat: 5" time="0.004" classname="PhantomJS 1.9.8 (Linux).MaskService generateRegex function"/>
+    <testcase name="should create regex, divisors, options, indexes - mask: 39/19/9999" time="0.006" classname="PhantomJS 1.9.8 (Linux).MaskService generateRegex function"/>
+    <testcase name="should return options object passed to generateRegex" time="0.002" classname="PhantomJS 1.9.8 (Linux).MaskService getOptions function"/>
     <system-out><![CDATA[
 ]]></system-out>
     <system-err/>

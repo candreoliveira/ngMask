@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   angular.module('ngMask')
-    .factory('MaskService', ['$log', function($log){
+    .factory('MaskService', ['$log', '$q', function($log, $q){
       function create() {
         var options;
         var maskWithoutOptionals;
@@ -186,6 +186,8 @@
         }
 
         function generateRegex(opts) {
+          var deferred = $q.defer();
+
           function generateOptionalDivisors() {
             function sortNumber(a,b) {
                 return a - b;
@@ -243,10 +245,22 @@
 
             generateOptionalDivisors();
             maskWithoutOptionalsAndDivisorsLength = removeDivisors(maskWithoutOptionals).length;
+
+            deferred.resolve({
+              options: options,
+              divisors: divisors,
+              divisorElements: divisorElements,
+              optionalIndexes: optionalIndexes,
+              optionalDivisors: optionalDivisors,
+              optionalDivisorsCombinations: optionalDivisorsCombinations
+            });
           } catch (e) {
             $log.error('[MaskService - generateRegex]');
+            deferred.reject(e);
             throw e;
           }
+
+          return deferred.promise;
         }
 
         function getRegex(index) {
