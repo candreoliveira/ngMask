@@ -149,7 +149,7 @@
 
                 controller.$parsers.push(parseViewValue);
 
-                $element.on('click input paste keyup', function() {
+                $element.on(' input paste keyup', function() {
                   parseViewValue($element.val());
                   $scope.$apply();
                 });

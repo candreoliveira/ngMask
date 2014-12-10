@@ -355,6 +355,132 @@
         </fieldset>
       </div>
     </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        <fieldset>
+          <label>MASK: 19/39/9999 RESTRICT: REJECT</label>
+          <br>
+          <input type="text" name="date4"
+                 mask="19/39/9999"
+                 restrict="reject"
+                 ng-model="date4">
+
+          <p>Model: {{date4}}</p>
+          <p>Field Error: {{form.date4.$error}}</p>
+          <p>Field Valid: {{form.date4.$valid}}</p>
+          <code>
+            &lt;input type="text" name="date"
+                 mask="19/39/9999"
+                 restrict="reject""
+                 ng-model="date4"&gt;
+          </code>
+        </fieldset>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <fieldset>
+          <label>MASK: 19/39/9999 RESTRICT: REJECT CLEAN: TRUE</label>
+          <br>
+          <input type="text" name="date5"
+                 mask="19/39/9999"
+                 restrict="reject"
+                 clean="true"
+                 ng-model="date5">
+
+          <p>Model: {{date5}}</p>
+          <p>Field Error: {{form.date5.$error}}</p>
+          <p>Field Valid: {{form.date5.$valid}}</p>
+          <code>
+            &lt;input type="text" name="date5"
+                 mask="19/39/9999"
+                 restrict="reject""
+                 clean="true"
+                 ng-model="date5"&gt;
+          </code>
+        </fieldset>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <fieldset>
+          <label>MASK: 19/39/9999 RESTRICT: ACCEPT</label>
+          <br>
+          <input type="text" name="date6"
+                 mask="19/39/9999"
+                 restrict="accept"
+                 ng-model="date6">
+
+          <p>Model: {{date6}}</p>
+          <p>Field Error: {{form.date6.$error}}</p>
+          <p>Field Valid: {{form.date6.$valid}}</p>
+          <code>
+            &lt;input type="text" name="date6"
+                 mask="19/39/9999"
+                 restrict="reject""
+                 clean="true"
+                 ng-model="date6"&gt;
+          </code>
+        </fieldset>
+      </div>
+    </div>
+    <hr>
+
+    <div class="row">
+      <h3>Phone example</h3>
+      <div class="col-xs-12 col-sm-4">
+        <fieldset>
+          <label>MASK: (999) 999-9999</label>
+          <br>
+          <input type="text" name="phone"
+                 mask="(999) 999-9999"
+                 ng-model="phone">
+
+          <p>Model: {{phone}}</p>
+          <p>Field Error: {{form.phone.$error}}</p>
+          <p>Field Valid: {{form.phone.$valid}}</p>
+          <code>
+            &lt;input type="text" name="phone"
+                 mask="(999) 999-9999"
+                 ng-model="phone"&gt;
+          </code>
+        </fieldset>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <fieldset>
+          <label>MASK: (99) 9?9999-9999</label>
+          <br>
+          <input type="text" name="phone2"
+                 mask="(99) 9?9999-9999"
+                 ng-model="phone2">
+
+          <p>Model: {{phone2}}</p>
+          <p>Field Error: {{form.phone2.$error}}</p>
+          <p>Field Valid: {{form.phone2.$valid}}</p>
+          <code>
+            &lt;input type="text" name="phone2"
+                 mask="39/19/9999"
+                 ng-model="phone2"&gt;
+          </code>
+        </fieldset>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <fieldset>
+          <label>MASK: +99 99 9?9999-9999 RESTRICT: REJECT</label>
+          <br>
+          <input type="text" name="phone3"
+                 mask="+99 99 9?9999-9999"
+                 retrict="reject"
+                 ng-model="phone3">
+
+          <p>Model: {{phone3}}</p>
+          <p>Field Error: {{form.phone3.$error}}</p>
+          <p>Field Valid: {{form.phone3.$valid}}</p>
+          <code>
+            &lt;input type="text" name="phone3"
+                 mask="phone3"
+                 clean="false"
+                 ng-model="phone3"&gt;
+          </code>
+        </fieldset>
+      </div>
+    </div>
     <hr>
 
     <div class="row">

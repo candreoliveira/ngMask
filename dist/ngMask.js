@@ -152,7 +152,7 @@
 
                 controller.$parsers.push(parseViewValue);
 
-                $element.on('click input paste keyup', function() {
+                $element.on(' input paste keyup', function() {
                   parseViewValue($element.val());
                   $scope.$apply();
                 });
@@ -531,19 +531,38 @@
 
 
         function tryDivisorConfiguration(value) {
-          function insertDivisors(array, divisors) {
-            var output = array;
+          function insertDivisors(array, combination) {
+            function insert(array, output) {
+              var out = output;
+              for (var i=0; i<array.length; i++) {
+                var divisor = array[i];
+                if (divisor < out.length) {
+                  out.splice(divisor, 0, divisorElements[divisor]);
+                }
+              }
+              return out;
+            }
 
-            if (!angular.isArray(array) || !angular.isArray(divisors)) {
+            var output = array;
+            var divs = divisors.filter(function(it) {
+              var optionalDivisorsKeys = Object.keys(optionalDivisors).map(function(it){
+                return parseInt(it);
+              });
+
+              var notInCombination = combination.indexOf(it) === -1;
+              var notInOptionalDivisorParent = optionalDivisorsKeys.indexOf(it) === -1;
+              return notInCombination && notInOptionalDivisorParent;
+            });
+
+            if (!angular.isArray(array) || !angular.isArray(combination)) {
               return output;
             }
 
-            for (var i=0; i<divisors.length; i++) {
-              var divisor = divisors[i];
-              if (divisor < output.length) {
-                output.splice(divisor, 0, divisorElements[divisor]);
-              }
-            }
+            // insert not optional divisors
+            output = insert(divs, output);
+
+            // insert optional divisors
+            output = insert(combination, output);
 
             return output;
           }
