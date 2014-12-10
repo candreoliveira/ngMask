@@ -17,12 +17,12 @@
 * Install the dependency:
 
    ```
-   bower install angular-ngMask --save
+   bower install angular-mask --save
    ```
 * Add ngMask.min.js to your code:
 
    ```
-   <script src='bower_components/angular-ngMask/dist/ngMask.min.js'></script>
+   <script src='bower_components/angular-mask/dist/ngMask.min.js'></script>
    ```
 * Include module dependency:
 
