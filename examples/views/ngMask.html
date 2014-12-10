@@ -239,34 +239,47 @@
       <li>
         <p><strong>NgModel (required)</strong>: model object</p>
         <span class="help-block">Attribute 'ng-model'</span>
+        <p>The model of input.</p>
       </li>
       <li>
         <p><strong>Mask (required)</strong>: mask definition</p>
         <span class="help-block">Attribute 'mask'</span>
+        <p>The mask for input.</p>
       </li>
       <li>
         <p><strong>NgValue</strong>: initial mask value (default: undefined)</p>
         <span class="help-block">Attribute 'ng-value'</span>
+        <p>The initial value of input.</p>
       </li>
       <li>
         <p><strong>Restrict</strong>: 'select', 'reject' or 'accept'  (default: select)</p>
         <span class="help-block">Attribute 'mask-restrict' or 'restrict'</span>
+        <p>
+          The way how ngMask will interact with user input.
+          <strong>Select</strong> restriction: The input will show the char inputted even on error cases. If it has errors, the wrong char will be selected.
+          <strong>Reject</strong> restriction: The input will show the char inputted on successfull cases. If it has errors, the wrong char will be rejected.
+          <strong>Accept</strong> restriction: The input will always show the char inputted. No matter it's right or wrong.
+        </p>
       </li>
       <li>
         <p><strong>Repeat</strong>: number - repeat mask n times (default: undefined)</p>
         <span class="help-block">Attribute 'mask-repeat' or 'repeat'</span>
+        <p>Repeats the mask attribute the defined times.</p>
       </li>
       <li>
         <p><strong>Clean</strong>: 'true' or 'false' (default: false)</p>
         <span class="help-block">Attribute 'mask-clean' or 'clean'</span>
+        <p>Cleans model value. Removes divisors from model value.</p>
       </li>
       <li>
         <p><strong>Validate</strong>: 'true' or 'false' (default: true)</p>
         <span class="help-block">Attribute 'mask-validate' or 'validate'</span>
+        <p>Applies validation. Uses form controller setValidity method.</p>
       </li>
       <li>
         <p><strong>Limit</strong>: 'true' or 'false' (default: true)</p>
         <span class="help-block">Attribute 'mask-limit' or 'limit'</span>
+        <p>Limits the max length inputted according with mask.</p>
       </li>
     </ul>
   </div>

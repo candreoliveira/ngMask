@@ -1,5 +1,6 @@
 # ngMask
 ## Best AngularJS mask alternative!
+=======
 
 [![GitHub version](https://badge.fury.io/gh/candreoliveira%2FngMask.svg)](http://badge.fury.io/gh/candreoliveira%2FngMask) [![Bower version](https://badge.fury.io/bo/angular-mask.svg)](http://badge.fury.io/bo/angular-mask) [![Build Status](https://travis-ci.org/candreoliveira/ngMask.svg)](https://travis-ci.org/candreoliveira/ngMask) [![Code Climate](https://codeclimate.com/github/candreoliveira/ngMask/badges/gpa.svg)](https://codeclimate.com/github/candreoliveira/ngMask) [![Test Coverage](https://codeclimate.com/github/candreoliveira/ngMask/badges/coverage.svg)](https://codeclimate.com/github/candreoliveira/ngMask) [![NPM Dependencies](https://david-dm.org/candreoliveira/ngMask.png)](https://david-dm.org/candreoliveira)
 
@@ -141,20 +142,31 @@ You can make your mask using some patterns available. If you use a pattern not s
 
    - **NgModel (required)**: model object
       - Attribute 'ng-model'
+      - The model of input.
    - **Mask (required)**: mask definition
       - Attribute 'mask'
+      - The mask for input.
    - **NgValue**: initial mask value (default: undefined)
       - Attribute 'ng-value'
+      - The initial value of input.
    - **Restrict**: 'select', 'remove' or 'accept' (default: select)
       - Attribute 'mask-restrict' or 'restrict'
+      - The way how ngMask will interact with user input.
+         - **Select** restriction: The input will show the char inputted even on error cases. If it has errors, the wrong char will be selected.
+         - **Reject** restriction: The input will show the char inputted on successfull cases. If it has errors, the wrong char will be rejected.
+         - **Accept** restriction: The input will always show the char inputted. No matter it's right or wrong.
    - **Repeat**: number - repeat mask n times (default: undefined)
       - Attribute 'mask-repeat' or 'repeat'
+      - Repeats the mask attribute the defined times.
    - **Clean**: 'true' or 'false' (default: false)
       - Attribute 'mask-clean' or 'clean'
+      - Cleans model value. Removes divisors from model value.
    - **Validate**: 'true' or 'false' (default: true)
       - Attribute 'mask-validate' or 'validate'
+      - Applies validation. Uses form controller setValidity method.
    - **Limit**: 'true' or 'false' (default: true)
       - Attribute 'mask-limit' or 'limit'
+      - Limits the max length inputted according with mask.
 
 ======
 
