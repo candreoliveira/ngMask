@@ -1,5 +1,8 @@
 # ngMask
-## Best AngularJS mask alternative!
+
+### Best Angular JS mask alternative!
+
+##### Angular mask without dependencies (NO JQUERY). Pure javascript and only ~6kb! It gives you power to create your mask with optional fields in accordance with your business.
 =======
 
 [![GitHub version](https://badge.fury.io/gh/candreoliveira%2FngMask.svg)](http://badge.fury.io/gh/candreoliveira%2FngMask) [![Bower version](https://badge.fury.io/bo/angular-mask.svg)](http://badge.fury.io/bo/angular-mask) [![Build Status](https://travis-ci.org/candreoliveira/ngMask.svg)](https://travis-ci.org/candreoliveira/ngMask) [![Code Climate](https://codeclimate.com/github/candreoliveira/ngMask/badges/gpa.svg)](https://codeclimate.com/github/candreoliveira/ngMask) [![Test Coverage](https://codeclimate.com/github/candreoliveira/ngMask/badges/coverage.svg)](https://codeclimate.com/github/candreoliveira/ngMask) [![NPM Dependencies](https://david-dm.org/candreoliveira/ngMask.png)](https://david-dm.org/candreoliveira)
