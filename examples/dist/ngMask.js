@@ -124,8 +124,7 @@
 
                     // Set validity
                     if (options.validate && controller.$dirty) {
-                      // if (validCurrentPosition && (maskWithoutOptionals.length === viewValueWithDivisors.length)) {
-                      if (fullRegex.test(viewValueWithDivisors)) {
+                      if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(controller.$modelValue)) {
                         controller.$setValidity('mask', true);
                       } else {
                         controller.$setValidity('mask', false);
@@ -152,7 +151,7 @@
 
                 controller.$parsers.push(parseViewValue);
 
-                $element.on(' input paste keyup', function() {
+                $element.on('click input paste keyup', function() {
                   parseViewValue($element.val());
                   $scope.$apply();
                 });
