@@ -7,6 +7,10 @@
 [![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/chrome/chrome_64x64.png)](https://docs.angularjs.org/misc/faq/#what-browsers-does-angular-work-with-) [![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/firefox/firefox_64x64.png)](https://docs.angularjs.org/misc/faq/#what-browsers-does-angular-work-with-) [![IE8+](https://raw.githubusercontent.com/alrra/browser-logos/master/internet-explorer/internet-explorer_64x64.png)](https://docs.angularjs.org/guide/ie) [![Opera](https://raw.githubusercontent.com/alrra/browser-logos/master/opera/opera_64x64.png)](https://docs.angularjs.org/misc/faq/#what-browsers-does-angular-work-with-) [![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/safari/safari_64x64.png)](https://docs.angularjs.org/misc/faq/#what-browsers-does-angular-work-with-)
 ======
 
+### TL;DR
+
+[Check live examples here.](http://candreoliveira.github.io/#/ngMask)
+
 ### Install
 
 **With Bower**
