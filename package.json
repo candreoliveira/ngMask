@@ -12,15 +12,12 @@
     "grunt-contrib-concat": "^0.4.0",
     "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-uglify": "^0.4.0",
-    "grunt-html2md": "~0.1.1",
     "grunt-karma": "~0.8.3",
-    "grunt-release": "~0.7.0",
-    "grunt-shell": "^0.7.0",
     "karma": "~0.12.16",
     "karma-chai": "~0.1.0",
     "karma-chai-plugins": "~0.2.1",
     "karma-chrome-launcher": "^0.1.4",
-    "karma-jasmine": "~0.1.5",
+    "karma-jasmine": "~0.2.0",
     "karma-junit-reporter": "~0.2.2",
     "karma-phantomjs-launcher": "~0.1.4",
     "load-grunt-tasks": "~0.6.0",
@@ -33,5 +30,5 @@
     "test": "grunt karma"
   },
   "author": "candreoliveira@gmail.com",
-  "license": "ISC"
+  "license": "MIT"
 }

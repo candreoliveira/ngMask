@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   angular.module('ngMask')
-    .factory('MaskService', ['$log', '$q', function($log, $q){
+    .factory('MaskService', ['$log', '$q', 'OptionalService', 'UtilService', function($log, $q, OptionalService, UtilService) {
       function create() {
         var options;
         var maskWithoutOptionals;
@@ -41,119 +41,39 @@
           '%': /[0-9a-zA-ZçáàãâéèêẽíìĩîóòôõúùũüûÇÀÁÂÃÈÉÊẼÌÍÎĨÒÓÔÕÙÚÛŨ]/
         };
 
-        function getOptionals(mask) {
-          var indexes = [];
+        // REGEX
 
+        function generateIntermetiateElementRegex(i, forceOptional) {
+          var charRegex;
           try {
-            var regexp = /\?/g;
-            var match = [];
+            var element = maskWithoutOptionals[i];
+            var elementRegex = patterns[element];
+            var hasOptional = isOptional(i);
 
-            while ((match = regexp.exec(mask)) != null) {
-              // Save the optional char
-              indexes.push((match.index - 1));
+            if (elementRegex) {
+              charRegex = '(' + elementRegex.source + ')';
+            } else { // is a divisor
+              if (!isDivisor(i)) {
+                divisors.push(i);
+                divisorElements[i] = element;
+              }
+
+              charRegex = '(' + '\\' + element + ')';
             }
           } catch (e) {
-            $log.error('[MaskService - getOptionals]');
+            $log.error('[MaskService - generateIntermetiateElementRegex]');
             throw e;
           }
 
-          return {
-            fromMask: function() {
-              return indexes;
-            },
-            fromMaskWithoutOptionals: function() {
-              return getOptionalsRelativeMaskWithoutOptionals(indexes);
-            }
-          };
-        }
-
-        function getOptionalsRelativeMaskWithoutOptionals(optionals) {
-          var indexes = [];
-          for (var i=0; i<optionals.length; i++) {
-            indexes.push(optionals[i]-i);
-          }
-          return indexes;
-        }
-
-        function removeOptionals(mask) {
-          var newMask;
-
-          try {
-            newMask = mask.replace(/\?/g, '');
-          } catch (e) {
-            $log.error('[MaskService - removeOptionals]');
-            throw e;
+          if (hasOptional || forceOptional) {
+            charRegex += '?';
           }
 
-          return newMask;
-        }
-
-        function uniqueArray(array) {
-          var u = {};
-          var a = [];
-
-          for (var i = 0, l = array.length; i < l; ++i) {
-            if(u.hasOwnProperty(array[i])) {
-              continue;
-            }
-
-            a.push(array[i]);
-            u[array[i]] = 1;
-          }
-
-          return a;
-        }
-
-        function inArray(i, array) {
-          var output;
-
-          try {
-            output = array.indexOf(i) > -1;
-          } catch (e) {
-            $log.error('[MaskService - inArray]');
-            throw e;
-          }
-
-          return output;
-        }
-
-        function isDivisor(currentPos) {
-          return inArray(currentPos, divisors);
-        }
-
-        function isOptional(currentPos) {
-          return inArray(currentPos, optionalIndexes);
+          return new RegExp(charRegex);
         }
 
         function generateIntermetiateRegex(i, forceOptional) {
-          function generateIntermetiateElementRegex(i, forceOptional) {
-            var charRegex;
-            try {
-              var element = maskWithoutOptionals[i];
-              var elementRegex = patterns[element];
-              var hasOptional = isOptional(i);
 
-              if (elementRegex) {
-                charRegex = '(' + elementRegex.source + ')';
-              } else { // is a divisor
-                if (!isDivisor(i)) {
-                  divisors.push(i);
-                  divisorElements[i] = element;
-                }
-
-                charRegex = '(' + '\\' + element + ')';
-              }
-            } catch (e) {
-              $log.error('[MaskService - generateIntermetiateElementRegex]');
-              throw e;
-            }
-
-            if (hasOptional || forceOptional) {
-              charRegex += '?';
-            }
-
-            return new RegExp(charRegex);
-          }
 
           var elementRegex
           var elementOptionalRegex;
@@ -187,34 +107,6 @@
 
         function generateRegex(opts) {
           var deferred = $q.defer();
-
-          function generateOptionalDivisors() {
-            function sortNumber(a,b) {
-                return a - b;
-            }
-
-            var sortedDivisors = divisors.sort(sortNumber);
-            var sortedOptionals = optionalIndexes.sort(sortNumber);
-            for (var i = 0; i<sortedDivisors.length; i++) {
-              var divisor = sortedDivisors[i];
-              for (var j = 1; j<=sortedOptionals.length; j++) {
-                var optional = sortedOptionals[(j-1)];
-                if (optional >= divisor) {
-                  break;
-                }
-
-                if (optionalDivisors[divisor]) {
-                  optionalDivisors[divisor] = optionalDivisors[divisor].concat(divisor-j);
-                } else {
-                  optionalDivisors[divisor] = [(divisor-j)];
-                }
-
-                // get the original divisor for alternative divisor
-                divisorElements[(divisor-j)] = divisorElements[divisor];
-              }
-            }
-          }
-
           options = opts;
 
           try {
@@ -225,8 +117,8 @@
               mask = Array((parseInt(repeat)+1)).join(mask);
             }
 
-            optionalIndexes = getOptionals(mask).fromMaskWithoutOptionals();
-            options['maskWithoutOptionals'] = maskWithoutOptionals = removeOptionals(mask);
+            optionalIndexes = OptionalService.getOptionals(mask).fromMaskWithoutOptionals();
+            options['maskWithoutOptionals'] = maskWithoutOptionals = OptionalService.removeOptionals(mask);
             maskWithoutOptionalsLength = maskWithoutOptionals.length;
 
             var cumulativeRegex;
@@ -276,8 +168,41 @@
           return (new RegExp('^' + currentRegex + '$'));
         }
 
-        function getOptions() {
-          return options;
+        // DIVISOR
+
+        function isOptional(currentPos) {
+          return UtilService.inArray(currentPos, optionalIndexes);
+        }
+
+        function isDivisor(currentPos) {
+          return UtilService.inArray(currentPos, divisors);
+        }
+
+        function generateOptionalDivisors() {
+          function sortNumber(a,b) {
+              return a - b;
+          }
+
+          var sortedDivisors = divisors.sort(sortNumber);
+          var sortedOptionals = optionalIndexes.sort(sortNumber);
+          for (var i = 0; i<sortedDivisors.length; i++) {
+            var divisor = sortedDivisors[i];
+            for (var j = 1; j<=sortedOptionals.length; j++) {
+              var optional = sortedOptionals[(j-1)];
+              if (optional >= divisor) {
+                break;
+              }
+
+              if (optionalDivisors[divisor]) {
+                optionalDivisors[divisor] = optionalDivisors[divisor].concat(divisor-j);
+              } else {
+                optionalDivisors[divisor] = [(divisor-j)];
+              }
+
+              // get the original divisor for alternative divisor
+              divisorElements[(divisor-j)] = divisorElements[divisor];
+            }
+          }
         }
 
         function removeDivisors(value) {
@@ -293,7 +218,7 @@
                 }
               }
 
-              elments = uniqueArray(elments);
+              elments = UtilService.uniqueArray(elments);
 
               // remove if it is not pattern
               var regex = new RegExp(('[' + '\\' + elments.join('\\') + ']'), 'g');
@@ -307,83 +232,41 @@
           }
         }
 
-        // sets: an array of arrays
-        // f: your callback function
-        // context: [optional] the `this` to use for your callback
-        // http://phrogz.net/lazy-cartesian-product
-        function lazyProduct(sets, f, context){
-          if (!context){
-            context=this;
-          }
-
-          var p = [];
-          var max = sets.length-1;
-          var lens = [];
-
-          for (var i=sets.length;i--;) {
-            lens[i] = sets[i].length;
-          }
-
-          function dive(d){
-            var a = sets[d];
-            var len = lens[d];
-
-            if (d === max) {
-              for (var i=0;i<len;++i) {
-                p[d] = a[i];
-                f.apply(context, p);
-              }
-            } else {
-              for (var i=0;i<len;++i) {
-                p[d]=a[i];
-                dive(d+1);
+        function insertDivisors(array, combination) {
+          function insert(array, output) {
+            var out = output;
+            for (var i=0; i<array.length; i++) {
+              var divisor = array[i];
+              if (divisor < out.length) {
+                out.splice(divisor, 0, divisorElements[divisor]);
               }
             }
-
-            p.pop();
+            return out;
           }
 
-          dive(0);
-        }
-
-
-        function tryDivisorConfiguration(value) {
-          function insertDivisors(array, combination) {
-            function insert(array, output) {
-              var out = output;
-              for (var i=0; i<array.length; i++) {
-                var divisor = array[i];
-                if (divisor < out.length) {
-                  out.splice(divisor, 0, divisorElements[divisor]);
-                }
-              }
-              return out;
-            }
-
-            var output = array;
-            var divs = divisors.filter(function(it) {
-              var optionalDivisorsKeys = Object.keys(optionalDivisors).map(function(it){
-                return parseInt(it);
-              });
-
-              var notInCombination = combination.indexOf(it) === -1;
-              var notInOptionalDivisorParent = optionalDivisorsKeys.indexOf(it) === -1;
-              return notInCombination && notInOptionalDivisorParent;
+          var output = array;
+          var divs = divisors.filter(function(it) {
+            var optionalDivisorsKeys = Object.keys(optionalDivisors).map(function(it){
+              return parseInt(it);
             });
 
-            if (!angular.isArray(array) || !angular.isArray(combination)) {
-              return output;
-            }
+            return !UtilService.inArray(it, combination) && !UtilService.inArray(it, optionalDivisorsKeys);
+          });
 
-            // insert not optional divisors
-            output = insert(divs, output);
-
-            // insert optional divisors
-            output = insert(combination, output);
-
+          if (!angular.isArray(array) || !angular.isArray(combination)) {
             return output;
           }
 
+          // insert not optional divisors
+          output = insert(divs, output);
+
+          // insert optional divisors
+          output = insert(combination, output);
+
+          return output;
+        }
+
+        function tryDivisorConfiguration(value) {
           var output = value.split('');
           var defaultDivisors = true;
 
@@ -400,7 +283,7 @@
 
             // generate all possible configurations
             if (optionalDivisorsCombinations.length === 0) {
-              lazyProduct(lazyArguments, function() {
+              UtilService.lazyProduct(lazyArguments, function() {
                 // convert arguments to array
                 optionalDivisorsCombinations.push(Array.prototype.slice.call(arguments));
               });
@@ -429,6 +312,12 @@
           return output.join('');
         }
 
+        // MASK
+
+        function getOptions() {
+          return options;
+        }
+
         function getViewValue(value) {
           try {
             var outputWithoutDivisors = removeDivisors(value);
@@ -455,6 +344,8 @@
             throw e;
           }
         }
+
+        // SELECTOR
 
         function getWrongPositions(viewValueWithDivisors, onlyFirst) {
           var pos = [];
