@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   angular.module('ngMask')
-    .factory('UtilService', ['$log', function($log) {
+    .factory('UtilService', [function() {
 
       // sets: an array of arrays
       // f: your callback function
@@ -48,7 +48,6 @@
         try {
           output = array.indexOf(i) > -1;
         } catch (e) {
-          $log.error('[UtilService - inArray]');
           throw e;
         }
 

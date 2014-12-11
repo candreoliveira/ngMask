@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   angular.module('ngMask')
-    .factory('OptionalService', ['$log', function($log) {
+    .factory('OptionalService', [function() {
       function getOptionalsIndexes(mask) {
         var indexes = [];
 
@@ -14,7 +14,6 @@
             indexes.push((match.index - 1));
           }
         } catch (e) {
-          $log.error('[OptionalService - getOptionals]');
           throw e;
         }
 
@@ -42,7 +41,6 @@
         try {
           newMask = mask.replace(/\?/g, '');
         } catch (e) {
-          $log.error('[OptionalService - removeOptionals]');
           throw e;
         }
 
