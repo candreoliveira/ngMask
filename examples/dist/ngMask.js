@@ -183,7 +183,7 @@
 })();(function() {
   'use strict';
   angular.module('ngMask')
-    .factory('MaskService', ['$log', '$q', 'OptionalService', 'UtilService', function($log, $q, OptionalService, UtilService) {
+    .factory('MaskService', ['$q', 'OptionalService', 'UtilService', function($q, OptionalService, UtilService) {
       function create() {
         var options;
         var maskWithoutOptionals;
@@ -243,7 +243,6 @@
               charRegex = '(' + '\\' + element + ')';
             }
           } catch (e) {
-            $log.error('[MaskService - generateIntermetiateElementRegex]');
             throw e;
           }
 
@@ -273,7 +272,6 @@
 
             elementOptionalRegex = new RegExp(currentRegex);
           } catch (e) {
-            $log.error('[MaskService - generateIntermetiateRegex]');
             throw e;
           }
           return {
@@ -329,7 +327,6 @@
               optionalDivisorsCombinations: optionalDivisorsCombinations
             });
           } catch (e) {
-            $log.error('[MaskService - generateRegex]');
             deferred.reject(e);
             throw e;
           }
@@ -343,7 +340,6 @@
           try {
             currentRegex = regex[index] ? regex[index].source : '';
           } catch (e) {
-            $log.error('[MaskService - getRegex]');
             throw e;
           }
 
@@ -389,7 +385,7 @@
 
         function removeDivisors(value) {
           try {
-            if (divisors.length > 0) {
+            if (divisors.length > 0 && value) {
               var keys = Object.keys(divisorElements);
               var elments = [];
 
@@ -409,7 +405,6 @@
               return value;
             }
           } catch (e) {
-            $log.error('[MaskService - removeDivisors]');
             throw e;
           }
         }
@@ -522,7 +517,6 @@
               }
             };
           } catch (e) {
-            $log.error('[MaskService - getViewValue]');
             throw e;
           }
         }
@@ -554,7 +548,6 @@
 
         function getFirstWrongPosition(viewValueWithDivisors) {
           return getWrongPositions(viewValueWithDivisors, true)[0];
-          // return (typeof first === 'number') ? first : viewValueWithDivisors.length;
         }
 
         function removeWrongPositions(viewValueWithDivisors) {
@@ -590,7 +583,7 @@
 (function() {
   'use strict';
   angular.module('ngMask')
-    .factory('OptionalService', ['$log', function($log) {
+    .factory('OptionalService', [function() {
       function getOptionalsIndexes(mask) {
         var indexes = [];
 
@@ -603,7 +596,6 @@
             indexes.push((match.index - 1));
           }
         } catch (e) {
-          $log.error('[OptionalService - getOptionals]');
           throw e;
         }
 
@@ -631,7 +623,6 @@
         try {
           newMask = mask.replace(/\?/g, '');
         } catch (e) {
-          $log.error('[OptionalService - removeOptionals]');
           throw e;
         }
 
@@ -646,7 +637,7 @@
 })();(function() {
   'use strict';
   angular.module('ngMask')
-    .factory('UtilService', ['$log', function($log) {
+    .factory('UtilService', [function() {
 
       // sets: an array of arrays
       // f: your callback function
@@ -693,7 +684,6 @@
         try {
           output = array.indexOf(i) > -1;
         } catch (e) {
-          $log.error('[UtilService - inArray]');
           throw e;
         }
 
