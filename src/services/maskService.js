@@ -203,7 +203,7 @@
 
         function removeDivisors(value) {
           try {
-            if (divisors.length > 0) {
+            if (divisors.length > 0 && value) {
               var keys = Object.keys(divisorElements);
               var elments = [];
 
