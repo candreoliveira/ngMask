@@ -71,9 +71,8 @@
                 var options = maskService.getOptions();
 
                 function parseViewValue(value) {
-
                   // get view value object
-                  var viewValue = maskService.getViewValue(value || '');
+                  var viewValue = maskService.getViewValue(value);
 
                   // get mask without question marks
                   var maskWithoutOptionals = options['maskWithoutOptionals'] || '';
