@@ -7,7 +7,7 @@
         require: 'ngModel',
         compile: function($element, $attrs) { 
          if (!$attrs.mask || !$attrs.ngModel) {
-            $log.error('Mask and ng-model attributes are required!');
+            $log.info('Mask and ng-model attributes are required!');
             return;
           }
 
