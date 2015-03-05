@@ -33,7 +33,7 @@
    angular.module('yourApp', ['ngMask']);
    ```
 
-**Whitout Bower:**
+**Without Bower:**
 * Download the ngMask.min.js file from dist folder:
 
    ```shell
@@ -156,11 +156,11 @@ You can make your mask using some patterns available. If you use a pattern not s
    - **NgValue**: initial mask value (default: undefined)
       - Attribute 'ng-value'
       - The initial value of input.
-   - **Restrict**: 'select', 'remove' or 'accept' (default: select)
+   - **Restrict**: 'select', 'reject' or 'accept' (default: select)
       - Attribute 'mask-restrict' or 'restrict'
       - The way how ngMask will interact with user input.
          - **Select** restriction: The input will show the char inputted even on error cases. If it has errors, the wrong char will be selected.
-         - **Reject** restriction: The input will show the char inputted on successfull cases. If it has errors, the wrong char will be rejected.
+         - **Reject** restriction: The input will show the char inputted on successful cases. If it has errors, the wrong char will be rejected.
          - **Accept** restriction: The input will always show the char inputted. No matter it's right or wrong.
    - **Repeat**: number - repeat mask n times (default: undefined)
       - Attribute 'mask-repeat' or 'repeat'
