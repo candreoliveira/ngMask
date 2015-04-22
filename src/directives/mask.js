@@ -158,7 +158,7 @@
 
                 // Register the watch to observe remote loading or promised data
                 // Deregister calling returned function
-                var watcher = $scope.$watch($scope.ngModel, function (newValue, oldValue) {
+                var watcher = $scope.$watch('ngModel', function (newValue, oldValue) {
                   if (angular.isDefined(newValue)) {
                     parseViewValue(newValue);
                     watcher();
