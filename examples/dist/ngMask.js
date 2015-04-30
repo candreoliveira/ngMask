@@ -68,6 +68,7 @@
             post: function($scope, $element, $attrs, controller) {
               promise.then(function() {
                 // get initial options
+                var timeout;
                 var options = maskService.getOptions();
 
                 function parseViewValue(value) {
@@ -155,13 +156,18 @@
                 controller.$parsers.push(parseViewValue);
 
                 $element.on('click input paste keyup', function() {
-                  parseViewValue($element.val());
-                  $scope.$apply();
+                  timeout = $timeout(function() {
+                    // Manual debounce to prevent multiple execution
+                    $timeout.cancel(timeout);
+
+                    parseViewValue($element.val());
+                    $scope.$apply();
+                  }, 100);
                 });
 
                 // Register the watch to observe remote loading or promised data
                 // Deregister calling returned function
-                var watcher = $scope.$watch($scope.ngModel, function (newValue, oldValue) {
+                var watcher = $scope.$watch($attrs.ngModel, function (newValue, oldValue) {
                   if (angular.isDefined(newValue)) {
                     parseViewValue(newValue);
                     watcher();
