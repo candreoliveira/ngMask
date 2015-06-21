@@ -69,6 +69,7 @@
                 var options = maskService.getOptions();
 
                 function parseViewValue(value) {
+                  var untouchedValue = value;
                   // set default value equal 0
                   value = value || '';
 
@@ -125,7 +126,7 @@
 
                     // Set validity
                     if (options.validate && controller.$dirty) {
-                      if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(controller.$modelValue)) {
+                      if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(untouchedValue)) {
                         controller.$setValidity('mask', true);
                       } else {
                         controller.$setValidity('mask', false);
