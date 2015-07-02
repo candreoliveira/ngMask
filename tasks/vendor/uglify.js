@@ -3,10 +3,10 @@ module.exports = {
     options: {
       sourceMap: true,
       compress: true,
-      sourceMapName: '<%= yeoman.dist %>/ngMask.min.map'
+      sourceMapName: '<%= yeoman.dist %>/ngMaskBr.min.map'
     },
     files: {
-      '<%= yeoman.dist %>/ngMask.min.js': ['<%= yeoman.dist %>/ngMask.js']
+      '<%= yeoman.dist %>/ngMaskBr.min.js': ['<%= yeoman.dist %>/ngMaskBr.js']
     }
   }
 }

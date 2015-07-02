@@ -1,11 +1,12 @@
 {
-  "name": "ngMask",
-  "version": "3.0.12",
-  "homepage": "https://github.com/candreoliveira/ngMask",
+  "name": "ngMaskBr",
+  "version": "1.0.0",
+  "homepage": "https://github.com/fabioviana/ngMaskBr",
   "authors": [
-    "Carlos Oliveira <candreoliveira@gmail.com>"
+    "Carlos Oliveira <candreoliveira@gmail.com>",
+	"Fábio Viana <fabiovianabh@gmail.com>",
   ],
-  "main": "dist/ngMask.js",
+  "main": "dist/ngMaskBr.js",
   "description": "Best ngMask for AngularJS!",
   "moduleType": [
     "globals",
@@ -15,7 +16,7 @@
   "keywords": [
     "angular",
     "mask",
-    "ngMask",
+    "ngMaskBr",
     "best"
   ],
   "license": "MIT",
