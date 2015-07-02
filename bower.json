@@ -1,7 +1,7 @@
 {
-  "name": "ngMaskAlias",
-  "version": "0.0.1",
-  "homepage": "https://github.com/fabioviana/ngMaskAlias",
+  "name": "ngMask",
+  "version": "3.0.13",
+  "homepage": "https://github.com/fabioviana/ngMask",
   "authors": [
     "Carlos Oliveira <candreoliveira@gmail.com>",
 	"Fábio Viana <fabiovianabh@gmail.com>"
