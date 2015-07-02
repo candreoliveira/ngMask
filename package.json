@@ -1,6 +1,6 @@
 {
-  "name": "mask",
-  "version": "3.0.12",
+  "name": "ngMaskAlias",
+  "version": "3.0.12A",
   "description": "Best ngMask",
   "main": "Gruntfile.js",
   "devDependencies": {
@@ -29,6 +29,6 @@
   "scripts": {
     "test": "grunt karma"
   },
-  "author": "candreoliveira@gmail.com",
+  "author": "fabiovianabh@gmail.com",
   "license": "MIT"
 }
