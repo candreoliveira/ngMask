@@ -1,6 +1,6 @@
 {
   "name": "ngMaskAlias",
-  "version": "3.0.12A",
+  "version": "0.0.1",
   "description": "Best ngMask",
   "main": "Gruntfile.js",
   "devDependencies": {
