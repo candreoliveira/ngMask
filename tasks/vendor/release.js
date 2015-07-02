@@ -14,7 +14,7 @@ module.exports = {
     commitMessage: 'new release <%= version %>', //default: 'release <%= version %>'
     tagMessage: 'tagging version <%= version %>', //default: 'Version <%= version %>',
     github: {
-      repo: 'git@github.com:fabioviana/ngMaskBr.git', //put your user/repo here
+      repo: 'git@github.com:fabioviana/ngMask.git', //put your user/repo here
       usernameVar: 'USER', //ENVIRONMENT VARIABLE that contains Github username
       passwordVar: 'PASS' //ENVIRONMENT VARIABLE that contains Github password
     }

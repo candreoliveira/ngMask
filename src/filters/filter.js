@@ -1,28 +1,22 @@
 (function() {
   'use strict';
   angular.module('ngMask')
-      .filter('mask', ['MaskService', function (MaskService) {
+      .filter('mask', ['MaskService', 'ngMaskConfig', function (MaskService, ngMaskConfig) {
         return function (value, pMask) {
-            var regex
-            switch (pMask) {
-                case 'cpf':
-                    regex = '999.999.999-99'; break;
-                case 'cnpj':
-                    regex = '99.999.999/9999-99'; break;
-                case 'cep':
-                    regex = '99.999-999'; break;
-                case 'tel':
-                    if (value.length == 8 || value.length == 9) {
-                        regex = '9?9999-9999'; //Sem DDD
-                    } else {
-                        regex = '(99) 9?9999-9999'; //Com DDD
-                    }
-                    break;
-                case 'date':
-                    regex = '39/19/2999'; break;
-                default:
-                    regex = pMask; break;
-            }
+			var regex;
+
+			if (typeof ngMaskConfig.alias[pMask] != 'undefined') {
+				regex = ngMaskConfig.alias[pMask];
+				if (typeof regex == 'object') {
+					regex = regex.mask;
+				}
+				
+				if (typeof regex == 'function') {
+					regex = regex(value);
+				}
+			} else {
+				regex = pMask;
+			}
 
             var maskService = MaskService.create();
 

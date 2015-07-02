@@ -9,6 +9,6 @@ module.exports = {
       '<%= yeoman.app %>/services/*.js',
 	  '<%= yeoman.app %>/filters/*.js'
     ],
-    dest: '<%= yeoman.dist %>/ngMaskBr.js',
+    dest: '<%= yeoman.dist %>/ngMask.js',
   },
 };
