@@ -69,8 +69,8 @@
                 var options = maskService.getOptions();
 
                 function parseViewValue(value) {
-                  // set default value equal 0
-                  value = value || '';
+                  // change value to a string for string prototype functions used
+                  value = (typeof value == 'undefined') ? '' : '' + value;
 
                   // get view value object
                   var viewValue = maskService.getViewValue(value);
