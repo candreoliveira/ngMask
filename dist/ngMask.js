@@ -17,20 +17,23 @@
           }
 
 		  var _mask = $attrs.mask;
-		  var _validate;
+      var _validate;
 
+      // Set Alias and function
 		  if (typeof ngMaskConfig.alias[_mask] != 'undefined') {
-			  $attrs.mask = ngMaskConfig.alias[_mask];
-			  
-			  if (typeof $attrs.mask == 'object') {
-				  _validate = $attrs.mask.validate;
-				  $attrs.mask = $attrs.mask.mask;
-			  }
-			  
-			  if (typeof $attrs.mask == 'function') {
-				  $attrs.mask = $attrs.mask($attrs);
-			  }
-		  }
+          $attrs.mask = ngMaskConfig.alias[_mask];
+      
+        _validate = $attrs.mask.validate;
+      
+        if (typeof $attrs.mask == 'object') {
+          $attrs.mask = $attrs.mask.mask;
+        }
+      
+        if (typeof $attrs.mask == 'function') {
+          $attrs.mask = $attrs.mask($attrs);
+        }
+      }
+
 
           var maskService = MaskService.create();
           var timeout;
@@ -74,7 +77,7 @@
                 // limit length based on mask length
                 limit: (($attrs.limit || $attrs.maskLimit || 'true') === 'true'),
                 // how to act with a wrong value
-                restrict: ($attrs.restrict || $attrs.maskRestrict || 'select'), //select, reject, accept
+                restrict: ($attrs.restrict || $attrs.maskRestrict || 'reject'), //select, reject, accept
                 // set validity mask
                 validate: (($attrs.validate || $attrs.maskValidate || 'true') === 'true'),
                 // default model value
@@ -151,28 +154,11 @@
 
                     // Set validity
                     if (options.validate && controller.$dirty) {
-                      if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(controller.$modelValue) || _mask == 'int') {
-						  controller.$setValidity('mask', true);
-						  //Se a m�scara escolhida tiver valida��o, valida se s�o v�lidos.
-						  if (typeof _validate == 'function') {
-							  if (_validate(viewValueWithoutDivisors)) {
-								  console.log(_mask + ' valid.')
-								  controller.$setValidity(_mask, true);
-							  } else if (controller.$isEmpty(controller.$modelValue)) {
-								  controller.$setValidity(_mask, true);
-							  } else {
-								  console.log(_mask + ' invalid.')
-								  controller.$setValidity(_mask, false);
-							  }
-						  }
-                      } else if (!viewValueWithDivisors) {
-						  controller.$setValidity('mask', true);
-						  if (typeof _validate == 'function') {
-							  controller.$setValidity(_mask, true);
-						  }
-					  } else {
-						  controller.$setValidity('mask', false);
-					  }
+                        if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(controller.$modelValue)) {
+                            controller.$setValidity('mask', !_validate || _validate(viewValueWithoutDivisors));
+                        } else {
+                            controller.$setValidity('mask', false);
+                        }
                     }
 
                     // Update view and model values
@@ -188,10 +174,7 @@
                   // Update model, can be different of view value
                   if (options.clean) {
                     return viewValueWithoutDivisors;
-                  } else if (_mask == 'int') {
-					  //Se a mask for 'int'
-					  return parseInt(viewValueWithDivisors);
-				  } else {
+                  } else {
                     return viewValueWithDivisors;
                   }
                 }
@@ -496,7 +479,7 @@
         }
 
         function tryDivisorConfiguration(value) {
-          var output = value.split('');
+          var output = value.toString().split('');
           var defaultDivisors = true;
 
           // has optional?
@@ -555,14 +538,14 @@
             return {
               withDivisors: function(capped) {
                 if (capped) {
-                  return output.substr(0, maskWithoutOptionalsLength);
+                  return output.toString().substr(0, maskWithoutOptionalsLength);
                 } else {
                   return output;
                 }
               },
               withoutDivisors: function(capped) {
                 if (capped) {
-                  return outputWithoutDivisors.substr(0, maskWithoutOptionalsAndDivisorsLength);
+                  return outputWithoutDivisors.toString().substr(0, maskWithoutOptionalsAndDivisorsLength);
                 } else {
                   return outputWithoutDivisors;
                 }
