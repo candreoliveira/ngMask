@@ -354,6 +354,24 @@
           </code>
         </fieldset>
       </div>
+	  <div class="col-xs-12 col-sm-4">
+        <fieldset>
+          <label>MASK Alias: date</label>
+          <br>
+          <input type="text" name="dateAlias"
+                 mask="date"
+                 ng-model="dateAlias">
+
+          <p>Model: {{dateAlias}}</p>
+          <p>Field Error: {{form.dateAlias.$error}}</p>
+          <p>Field Valid: {{form.dateAlias.$valid}}</p>
+          <code>
+            &lt;input type="text" name="dateAlias"
+                 mask="date"
+                 ng-model="dateAlias"&gt;
+          </code>
+        </fieldset>
+      </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-4">
@@ -459,6 +477,24 @@
             &lt;input type="text" name="phone2"
                  mask="(99) 9?9999-9999"
                  ng-model="phone2"&gt;
+          </code>
+        </fieldset>
+      </div>
+	  <div class="col-xs-12 col-sm-4">
+        <fieldset>
+          <label>MASK Alias: tel = (99) 9?9999-9999</label>
+          <br>
+          <input type="text" name="phoneAlias"
+                 mask="tel"
+                 ng-model="phoneAlias">
+
+          <p>Model: {{phoneAlias}}</p>
+          <p>Field Error: {{form.phoneAlias.$error}}</p>
+          <p>Field Valid: {{form.phoneAlias.$valid}}</p>
+          <code>
+            &lt;input type="text" name="phoneAlias"
+                 mask="tel"
+                 ng-model="phoneAlias"&gt;
           </code>
         </fieldset>
       </div>
@@ -638,6 +674,23 @@
           </code>
         </fieldset>
       </div>
+	  <div class="col-xs-12 col-sm-4">
+        <fieldset>
+          <label>MASK Alias: cpf = 999.999.999-99</label>
+          <br>
+          <input type="text" name="cpfAlias"
+                 mask="cpf"
+                 ng-model="cpfAlias">
+
+          <p>Model: {{cpfAlias}}</p>
+          <p>Field Error: {{form.cpfAlias.$error}}</p>
+          <code>
+            &lt;input type="text" name="cpfAlias"
+                 mask="cpf"
+                 ng-model="cpfAlias"&gt;
+          </code>
+        </fieldset>
+      </div>
       <div class="col-xs-12 col-sm-4">
         <fieldset>
           <label>MASK: 999.999.999-99 CLEAN: TRUE</label>
@@ -741,6 +794,24 @@
           </code>
         </fieldset>
       </div>
+	  <div class="col-xs-12 col-sm-4">
+        <fieldset>
+          <label>MASK Alias: int</label>
+          <br>
+          <input type="text" name="integer"
+                 mask="int"
+                 ng-model="integer">
+
+          <p>Model: {{integer}}</p>
+          <p>Field Error: {{form.integer.$error}}</p>
+          <p>Field Valid: {{form.integer.$valid}}</p>
+          <code>
+            &lt;input type="text" name="integer"
+                 mask="int"
+                 ng-model="integer"&gt;
+          </code>
+        </fieldset>
+      </div>
     </div>
     <hr>
 
@@ -809,6 +880,15 @@
       </div>
     </div>
   </form>
+</div>
+
+<div class="row">
+  <div class="row">
+    <h2>Filter Examples</h2>
+  </div>
+  <div class="row">
+	<p>Model: {{'12345678900'|mask:'cpf'}}</p>
+  </div>
 </div>
 
 <p class="text-center">

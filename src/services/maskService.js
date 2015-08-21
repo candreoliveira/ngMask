@@ -262,7 +262,7 @@
         }
 
         function tryDivisorConfiguration(value) {
-          var output = value.split('');
+          var output = value.toString().split('');
           var defaultDivisors = true;
 
           // has optional?
@@ -321,14 +321,14 @@
             return {
               withDivisors: function(capped) {
                 if (capped) {
-                  return output.substr(0, maskWithoutOptionalsLength);
+                  return output.toString().substr(0, maskWithoutOptionalsLength);
                 } else {
                   return output;
                 }
               },
               withoutDivisors: function(capped) {
                 if (capped) {
-                  return outputWithoutDivisors.substr(0, maskWithoutOptionalsAndDivisorsLength);
+                  return outputWithoutDivisors.toString().substr(0, maskWithoutOptionalsAndDivisorsLength);
                 } else {
                   return outputWithoutDivisors;
                 }

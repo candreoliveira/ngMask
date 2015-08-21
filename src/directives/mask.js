@@ -1,15 +1,34 @@
 (function() {
   'use strict';
   angular.module('ngMask')
-    .directive('mask', ['$log', '$timeout', 'MaskService', function($log, $timeout, MaskService) {
+    .directive('mask', ['$log', '$timeout', 'MaskService', 'ngMaskConfig', function($log, $timeout, MaskService, ngMaskConfig) {
       return {
         restrict: 'A',
         require: 'ngModel',
-        compile: function($element, $attrs) { 
+        compile: function($element, $attrs) { 
          if (!$attrs.mask || !$attrs.ngModel) {
             $log.info('Mask and ng-model attributes are required!');
             return;
           }
+
+		  var _mask = $attrs.mask;
+      var _validate;
+
+      // Set Alias and function
+		  if (typeof ngMaskConfig.alias[_mask] != 'undefined') {
+          $attrs.mask = ngMaskConfig.alias[_mask];
+      
+        _validate = $attrs.mask.validate;
+      
+        if (typeof $attrs.mask == 'object') {
+          $attrs.mask = $attrs.mask.mask;
+        }
+      
+        if (typeof $attrs.mask == 'function') {
+          $attrs.mask = $attrs.mask($attrs);
+        }
+      }
+
 
           var maskService = MaskService.create();
           var timeout;
@@ -53,7 +72,7 @@
                 // limit length based on mask length
                 limit: (($attrs.limit || $attrs.maskLimit || 'true') === 'true'),
                 // how to act with a wrong value
-                restrict: ($attrs.restrict || $attrs.maskRestrict || 'select'), //select, reject, accept
+                restrict: ($attrs.restrict || $attrs.maskRestrict || 'reject'), //select, reject, accept
                 // set validity mask
                 validate: (($attrs.validate || $attrs.maskValidate || 'true') === 'true'),
                 // default model value
@@ -72,6 +91,11 @@
                   // set default value equal 0
                   value = value || '';
 
+				  // para o caso do datepicker onde value � um Date e n�o uma string
+				  if (value instanceof Date) {
+					  return value;
+				  }
+				  
                   // get view value object
                   var viewValue = maskService.getViewValue(value);
 
@@ -125,11 +149,11 @@
 
                     // Set validity
                     if (options.validate && controller.$dirty) {
-                      if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(controller.$modelValue)) {
-                        controller.$setValidity('mask', true);
-                      } else {
-                        controller.$setValidity('mask', false);
-                      }
+                        if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(controller.$modelValue)) {
+                            controller.$setValidity('mask', !_validate || _validate(viewValueWithoutDivisors));
+                        } else {
+                            controller.$setValidity('mask', false);
+                        }
                     }
 
                     // Update view and model values
