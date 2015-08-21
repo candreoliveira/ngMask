@@ -15,16 +15,16 @@ angular.module('app', ['ngMask', 'ngRoute'])
 	  ngMaskConfig.alias = {
 		'int': function (value) {
 			if (typeof value == 'object') {
-				value.repeat = '999';
+				value.repeat = '22';
 			}
-			return '9';
+			return '9?';
 		},
 		'cpf': {
 			mask: '999.999.999-99',
 			validate: function (strCPF) {
 				var add, i, rev;
 				strCPF = strCPF.replace(/[^\d]+/g, '');
-				if (strCPF == '') return false;
+				if (strCPF == '') return true;
 				// Elimina CPFs invalidos conhecidos    
 				if (strCPF.length != 11 ||
 					strCPF == "00000000000" ||
