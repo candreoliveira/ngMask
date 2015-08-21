@@ -1,18 +1,36 @@
 (function() {
-  'use strict';
-  angular.module('ngMask', []);
+	'use strict';
+	angular.module('ngMask', []).constant('ngMaskConfig', {
+		alias: {}
+	});
 })();(function() {
   'use strict';
   angular.module('ngMask')
-    .directive('mask', ['$log', '$timeout', 'MaskService', function($log, $timeout, MaskService) {
+    .directive('mask', ['$log', '$timeout', 'MaskService', 'ngMaskConfig', function($log, $timeout, MaskService, ngMaskConfig) {
       return {
         restrict: 'A',
         require: 'ngModel',
-        compile: function($element, $attrs) { 
+        compile: function($element, $attrs) { 
          if (!$attrs.mask || !$attrs.ngModel) {
             $log.info('Mask and ng-model attributes are required!');
             return;
           }
+
+		  var _mask = $attrs.mask;
+		  var _validate;
+
+		  if (typeof ngMaskConfig.alias[_mask] != 'undefined') {
+			  $attrs.mask = ngMaskConfig.alias[_mask];
+			  
+			  if (typeof $attrs.mask == 'object') {
+				  _validate = $attrs.mask.validate;
+				  $attrs.mask = $attrs.mask.mask;
+			  }
+			  
+			  if (typeof $attrs.mask == 'function') {
+				  $attrs.mask = $attrs.mask($attrs);
+			  }
+		  }
 
           var maskService = MaskService.create();
           var timeout;
@@ -75,6 +93,11 @@
                   // set default value equal 0
                   value = value || '';
 
+				  // para o caso do datepicker onde value � um Date e n�o uma string
+				  if (value instanceof Date) {
+					  return value;
+				  }
+				  
                   // get view value object
                   var viewValue = maskService.getViewValue(value);
 
@@ -128,11 +151,28 @@
 
                     // Set validity
                     if (options.validate && controller.$dirty) {
-                      if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(controller.$modelValue)) {
-                        controller.$setValidity('mask', true);
-                      } else {
-                        controller.$setValidity('mask', false);
-                      }
+                      if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(controller.$modelValue) || _mask == 'int') {
+						  controller.$setValidity('mask', true);
+						  //Se a m�scara escolhida tiver valida��o, valida se s�o v�lidos.
+						  if (typeof _validate == 'function') {
+							  if (_validate(viewValueWithoutDivisors)) {
+								  console.log(_mask + ' valid.')
+								  controller.$setValidity(_mask, true);
+							  } else if (controller.$isEmpty(controller.$modelValue)) {
+								  controller.$setValidity(_mask, true);
+							  } else {
+								  console.log(_mask + ' invalid.')
+								  controller.$setValidity(_mask, false);
+							  }
+						  }
+                      } else if (!viewValueWithDivisors) {
+						  controller.$setValidity('mask', true);
+						  if (typeof _validate == 'function') {
+							  controller.$setValidity(_mask, true);
+						  }
+					  } else {
+						  controller.$setValidity('mask', false);
+					  }
                     }
 
                     // Update view and model values
@@ -148,7 +188,10 @@
                   // Update model, can be different of view value
                   if (options.clean) {
                     return viewValueWithoutDivisors;
-                  } else {
+                  } else if (_mask == 'int') {
+					  //Se a mask for 'int'
+					  return parseInt(viewValueWithDivisors);
+				  } else {
                     return viewValueWithDivisors;
                   }
                 }
@@ -720,5 +763,43 @@
         inArray: inArray,
         uniqueArray: uniqueArray
       }
+    }]);
+})();(function() {
+  'use strict';
+  angular.module('ngMask')
+      .filter('mask', ['MaskService', 'ngMaskConfig', function (MaskService, ngMaskConfig) {
+        return function (value, pMask) {
+			var regex;
+
+			if (typeof ngMaskConfig.alias[pMask] != 'undefined') {
+				regex = ngMaskConfig.alias[pMask];
+				if (typeof regex == 'object') {
+					regex = regex.mask;
+				}
+				
+				if (typeof regex == 'function') {
+					regex = regex(value);
+				}
+			} else {
+				regex = pMask;
+			}
+
+            var maskService = MaskService.create();
+
+            maskService.generateRegex({
+                mask: regex
+            });
+
+            var options = maskService.getOptions();
+            var viewValue = maskService.getViewValue(value);
+
+            //Valor com os divisores da mÃ¡scara
+            var viewValueWithDivisors = viewValue.withDivisors(true);
+
+            //Valor sem os divisores da mÃ¡scara
+            var viewValueWithoutDivisors = viewValue.withoutDivisors(true);
+
+            return viewValueWithDivisors;
+        }
     }]);
 })();
