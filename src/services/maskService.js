@@ -111,6 +111,9 @@
             var mask = opts['mask'];
             var repeat = opts['repeat'];
 
+            if (!mask)
+              return;
+
             if (repeat) {
               mask = Array((parseInt(repeat)+1)).join(mask);
             }
