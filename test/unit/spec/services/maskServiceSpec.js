@@ -176,4 +176,10 @@ describe('MaskService', function (){
       expect( maskService.getOptions().maskWithoutOptionals ).toBe('9.9');
     });
   });
+
+  describe('removeDivisors function', function () {
+    it('should return a string when a number is passed in', function () {
+      expect(typeof maskService.removeDivisors(1234567890)).toBe('string');
+    });
+  });
 });

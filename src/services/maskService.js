@@ -202,6 +202,7 @@
         }
 
         function removeDivisors(value) {
+              value = value.toString();
           try {
             if (divisors.length > 0 && value) {
               var keys = Object.keys(divisorElements);
