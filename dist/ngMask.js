@@ -47,8 +47,6 @@
 
           return {
             pre: function($scope, $element, $attrs, controller) {
-              if (!promise)
-                return;
               promise = maskService.generateRegex({
                 mask: $attrs.mask,
                 // repeat mask expression n times
