@@ -47,6 +47,8 @@
 
           return {
             pre: function($scope, $element, $attrs, controller) {
+              if (!promisse)
+                return;
               promise = maskService.generateRegex({
                 mask: $attrs.mask,
                 // repeat mask expression n times
@@ -72,6 +74,7 @@
                 var options = maskService.getOptions();
 
                 function parseViewValue(value) {
+                  var untouchedValue = value;
                   // set default value equal 0
                   value = value || '';
 
@@ -128,7 +131,7 @@
 
                     // Set validity
                     if (options.validate && controller.$dirty) {
-                      if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(controller.$modelValue)) {
+                      if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(untouchedValue)) {
                         controller.$setValidity('mask', true);
                       } else {
                         controller.$setValidity('mask', false);
@@ -189,7 +192,8 @@
         }
       }
     }]);
-})();(function() {
+})();
+(function() {
   'use strict';
   angular.module('ngMask')
     .factory('MaskService', ['$q', 'OptionalService', 'UtilService', function($q, OptionalService, UtilService) {
@@ -302,6 +306,9 @@
             var mask = opts['mask'];
             var repeat = opts['repeat'];
 
+            if (!mask)
+              return;
+
             if (repeat) {
               mask = Array((parseInt(repeat)+1)).join(mask);
             }
@@ -393,6 +400,7 @@
         }
 
         function removeDivisors(value) {
+              value = value.toString();
           try {
             if (divisors.length > 0 && value) {
               var keys = Object.keys(divisorElements);
@@ -563,7 +571,7 @@
           var wrongPositions = getWrongPositions(viewValueWithDivisors, false);
           var newViewValue = viewValueWithDivisors;
 
-          for (var i in wrongPositions) {
+          for(var i = 0; i < wrongPositions.length; i++){
             var wrongPosition = wrongPositions[i];
             var viewValueArray = viewValueWithDivisors.split('');
             viewValueArray.splice(wrongPosition, 1);
