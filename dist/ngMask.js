@@ -175,6 +175,28 @@
                   }
                 });
 
+                $attrs.$observe('mask', function(value) {
+                    maskService.generateRegex({
+                      mask: $attrs.mask,
+                      // repeat mask expression n times
+                      repeat: ($attrs.repeat || $attrs.maskRepeat),
+                      // clean model value - without divisors
+                      clean: (($attrs.clean || $attrs.maskClean) === 'true'),
+                      // limit length based on mask length
+                      limit: (($attrs.limit || $attrs.maskLimit || 'true') === 'true'),
+                      // how to act with a wrong value
+                      restrict: ($attrs.restrict || $attrs.maskRestrict || 'select'), //select, reject, accept
+                      // set validity mask
+                      validate: (($attrs.validate || $attrs.maskValidate || 'true') === 'true'),
+                      // default model value
+                      model: $attrs.ngModel,
+                      // default input value
+                      value: $attrs.ngValue
+                    }).then(function() {
+                      $element.triggerHandler('click');
+                    });
+                });
+
                 // $evalAsync from a directive
                 // it should run after the DOM has been manipulated by Angular
                 // but before the browser renders
@@ -298,6 +320,15 @@
 
         function generateRegex(opts) {
           var deferred = $q.defer();
+          maskWithoutOptionals = null;
+          maskWithoutOptionalsLength = 0;
+          maskWithoutOptionalsAndDivisorsLength = 0;
+          optionalIndexes = [];
+          optionalDivisors = {};
+          optionalDivisorsCombinations = [];
+          divisors = [];
+          divisorElements = {};
+          regex = [];
           options = opts;
 
           try {
