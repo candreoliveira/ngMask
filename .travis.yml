@@ -4,3 +4,16 @@ node_js:
 before_script:
   - npm install -g grunt grunt-cli bower
   - bower install
+
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: aaronaroberson@gmail.com
+  api_key:
+    secure: AUjI1lAZofXXFN2/CH497TN1hqm+fAUXKJCBjxmd0xiSrNUgMZqjg96g5R6OU11+zFRwcuvIWKvBcjiozSbej5zaU2Eh6amrJN+cM4cfLf4ljAdnHPGs4divlFchbqX1ThNQsLfC/dZZCVBo4oOvTz8l2L3LLwOYZkngQ0DoiHE=
+  on:
+    tags: true
+sudo: false
+
+git:
+  depth: 10
