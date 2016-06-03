@@ -1,8 +1,15 @@
 {
-  "name": "mask",
-  "version": "3.0.16",
-  "description": "Best ngMask",
-  "main": "Gruntfile.js",
+  "name": "ng-mask",
+  "version": "3.1.0",
+  "description": "Angular mask without dependencies (NO JQUERY). Pure javascript and only ~6kb! It gives you power to create your mask with optional fields in accordance with your business.",
+  "homepage": "https://github.com/candreoliveira/ngMask",
+  "main": "dist/ngMask.js",
+  "keywords": [
+    "angular",
+    "mask",
+    "ngMask",
+    "best"
+  ],
   "devDependencies": {
     "bump": "~0.2.5",
     "glob": "~4.0.2",
@@ -28,7 +35,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/grunt karma"
+    "test": "grunt karma"
   },
   "author": "candreoliveira@gmail.com",
   "license": "MIT"
