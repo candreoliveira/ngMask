@@ -75,7 +75,7 @@
 4. **Adjust your mask options.**
 
    ```html
-   <input type='text' ng-model='maskModel ng-value='0/3/9' mask='3/9?' mask-repeat='2' mask-restrict='accept' mask-clean='true' mask-validate='false' mask-limit='false' />
+   <input type='text' ng-model='maskModel' ng-value='0/3/9' mask='3/9?' mask-repeat='2' mask-restrict='accept' mask-clean='true' mask-validate='false' mask-limit='false' />
    ```
    - Generated mask '3/9?3/9?'. [Check all available options here.](https://github.com/candreoliveira/ngMask/#options)
 
