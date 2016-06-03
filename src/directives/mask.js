@@ -135,8 +135,10 @@
 
                     // Update view and model values
                     if(value !== viewValueWithDivisors){
-                      controller.$setViewValue(angular.copy(viewValueWithDivisors), 'input');
+                      controller.$viewValue = angular.copy(viewValueWithDivisors);
                       controller.$render();
+                      // Not using $setViewValue so we don't clobber the model value and dirty the form
+                      // without any kind of user interaction.
                     }
                   } catch (e) {
                     $log.error('[mask - parseViewValue]');
@@ -177,8 +179,10 @@
                 // but before the browser renders
                 if(options.value) {
                   $scope.$evalAsync(function($scope) {
-                    controller.$setViewValue(angular.copy(options.value), 'input');
+                    controller.$viewValue = angular.copy(options.value);
                     controller.$render();
+                    // Not using $setViewValue so we don't clobber the model value and dirty the form
+                    // without any kind of user interaction.
                   });
                 }
               });
