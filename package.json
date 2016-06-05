@@ -10,6 +10,9 @@
     "ngMask",
     "best"
   ],
+  "dependencies": {
+    "angular": "*"
+  },
   "devDependencies": {
     "bump": "~0.2.5",
     "glob": "~4.0.2",
