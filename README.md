@@ -25,7 +25,7 @@
 * Add ngMask.min.js to your code:
 
    ```html
-   <script src='bower_components/ngMask/dist/ngMask.min.js'></script>
+   <script src='bower_components/angular-mask/dist/ngMask.min.js'></script>
    ```
 * Include module dependency:
 
