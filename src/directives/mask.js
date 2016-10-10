@@ -68,6 +68,9 @@
                 var timeout;
                 var options = maskService.getOptions();
 
+                if (options.mask === undefined)
+                  return;
+                  
                 function parseViewValue(value) {
                   var untouchedValue = value;
                   // set default value equal 0
