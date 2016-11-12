@@ -3,7 +3,7 @@
   "version": "3.1.1",
   "description": "Angular mask without dependencies (NO JQUERY). Pure javascript and only ~6kb! It gives you power to create your mask with optional fields in accordance with your business.",
   "homepage": "https://github.com/candreoliveira/ngMask",
-  "main": "dist/ngMask.js",
+  "main": "index.js",
   "keywords": [
     "angular",
     "mask",
