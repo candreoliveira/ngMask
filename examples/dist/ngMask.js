@@ -18,33 +18,6 @@
           var timeout;
           var promise;
 
-          function setSelectionRange(selectionStart){
-            if (typeof selectionStart !== 'number') {
-              return;
-            }
-
-            // using $timeout:
-            // it should run after the DOM has been manipulated by Angular
-            // and after the browser renders (which may cause flicker in some cases)
-            $timeout.cancel(timeout);
-            timeout = $timeout(function(){
-              var selectionEnd = selectionStart + 1;
-              var input = $element[0];
-
-              if (input.setSelectionRange) {
-                input.focus();
-                input.setSelectionRange(selectionStart, selectionEnd);
-              } else if (input.createTextRange) {
-                var range = input.createTextRange();
-
-                range.collapse(true);
-                range.moveEnd('character', selectionEnd);
-                range.moveStart('character', selectionStart);
-                range.select();
-              }
-            });
-          }
-
           return {
             pre: function($scope, $element, $attrs, controller) {
               promise = maskService.generateRegex({
@@ -138,8 +111,10 @@
 
                     // Update view and model values
                     if(value !== viewValueWithDivisors){
-                      controller.$setViewValue(angular.copy(viewValueWithDivisors), 'input');
+                      controller.$viewValue = angular.copy(viewValueWithDivisors);
                       controller.$render();
+                      // Not using $setViewValue so we don't clobber the model value and dirty the form
+                      // without any kind of user interaction.
                     }
                   } catch (e) {
                     $log.error('[mask - parseViewValue]');
@@ -152,6 +127,33 @@
                   } else {
                     return viewValueWithDivisors;
                   }
+                }
+
+                function setSelectionRange(selectionStart){
+                  if (typeof selectionStart !== 'number') {
+                      return;
+                  }
+
+                  // using $timeout:
+                  // it should run after the DOM has been manipulated by Angular
+                  // and after the browser renders (which may cause flicker in some cases)
+                  $timeout.cancel(timeout);
+                  timeout = $timeout(function(){
+                      var selectionEnd = selectionStart + 1;
+                      var input = $element[0];
+
+                      if (input.setSelectionRange) {
+                          input.focus();
+                          input.setSelectionRange(selectionStart, selectionEnd);
+                      } else if (input.createTextRange) {
+                          var range = input.createTextRange();
+
+                          range.collapse(true);
+                          range.moveEnd('character', selectionEnd);
+                          range.moveStart('character', selectionStart);
+                          range.select();
+                      }
+                  });
                 }
 
                 controller.$parsers.push(parseViewValue);
@@ -167,11 +169,9 @@
                 });
 
                 // Register the watch to observe remote loading or promised data
-                // Deregister calling returned function
-                var watcher = $scope.$watch($attrs.ngModel, function (newValue, oldValue) {
+                $scope.$watch($attrs.ngModel, function (newValue, oldValue) {
                   if (angular.isDefined(newValue)) {
                     parseViewValue(newValue);
-                    watcher();
                   }
                 });
 
@@ -180,8 +180,10 @@
                 // but before the browser renders
                 if(options.value) {
                   $scope.$evalAsync(function($scope) {
-                    controller.$setViewValue(angular.copy(options.value), 'input');
+                    controller.$viewValue = angular.copy(options.value);
                     controller.$render();
+                    // Not using $setViewValue so we don't clobber the model value and dirty the form
+                    // without any kind of user interaction.
                   });
                 }
               });

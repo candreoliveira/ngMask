@@ -15,33 +15,6 @@
           var timeout;
           var promise;
 
-          function setSelectionRange(selectionStart){
-            if (typeof selectionStart !== 'number') {
-              return;
-            }
-
-            // using $timeout:
-            // it should run after the DOM has been manipulated by Angular
-            // and after the browser renders (which may cause flicker in some cases)
-            $timeout.cancel(timeout);
-            timeout = $timeout(function(){
-              var selectionEnd = selectionStart + 1;
-              var input = $element[0];
-
-              if (input.setSelectionRange) {
-                input.focus();
-                input.setSelectionRange(selectionStart, selectionEnd);
-              } else if (input.createTextRange) {
-                var range = input.createTextRange();
-
-                range.collapse(true);
-                range.moveEnd('character', selectionEnd);
-                range.moveStart('character', selectionStart);
-                range.select();
-              }
-            });
-          }
-
           return {
             pre: function($scope, $element, $attrs, controller) {
               promise = maskService.generateRegex({
@@ -151,6 +124,33 @@
                   } else {
                     return viewValueWithDivisors;
                   }
+                }
+
+                function setSelectionRange(selectionStart){
+                  if (typeof selectionStart !== 'number') {
+                      return;
+                  }
+
+                  // using $timeout:
+                  // it should run after the DOM has been manipulated by Angular
+                  // and after the browser renders (which may cause flicker in some cases)
+                  $timeout.cancel(timeout);
+                  timeout = $timeout(function(){
+                      var selectionEnd = selectionStart + 1;
+                      var input = $element[0];
+
+                      if (input.setSelectionRange) {
+                          input.focus();
+                          input.setSelectionRange(selectionStart, selectionEnd);
+                      } else if (input.createTextRange) {
+                          var range = input.createTextRange();
+
+                          range.collapse(true);
+                          range.moveEnd('character', selectionEnd);
+                          range.moveStart('character', selectionStart);
+                          range.select();
+                      }
+                  });
                 }
 
                 controller.$parsers.push(parseViewValue);
