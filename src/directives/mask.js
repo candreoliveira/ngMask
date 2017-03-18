@@ -137,6 +137,7 @@
                     if(value !== viewValueWithDivisors){
                       controller.$viewValue = angular.copy(viewValueWithDivisors);
                       controller.$render();
+                      setSelectionRange(viewValueWithDivisors.length);
                       // Not using $setViewValue so we don't clobber the model value and dirty the form
                       // without any kind of user interaction.
                     }
