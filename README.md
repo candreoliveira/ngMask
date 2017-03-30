@@ -16,6 +16,23 @@
 
 ### Install
 
+**With NPM**
+* Install the dependency:
+
+   ```javascript
+   npm install --save ng-mask
+   ```
+* Add ngMask.min.js to your code:
+
+   ```html
+   <script src='node_modules/ng-mask/dist/ngMask.min.js'></script>
+   ```
+* Include module dependency:
+
+   ```javascript
+   angular.module('yourApp', ['ngMask']);
+   ```
+
 **With Bower**
 * Install the dependency:
 
