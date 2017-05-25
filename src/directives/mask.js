@@ -168,7 +168,9 @@
                 // Register the watch to observe remote loading or promised data
                 $scope.$watch($attrs.ngModel, function (newValue, oldValue) {
                   if (angular.isDefined(newValue)) {
-                    parseViewValue(newValue);
+                    $timeout(function(){
+                      parseViewValue(newValue);
+                    });
                   }
                 });
 
