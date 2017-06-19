@@ -15,7 +15,7 @@
           var timeout;
           var promise;
 
-          function setSelectionRange(selectionStart){
+          function setSelectionRange($element, selectionStart){
             if (typeof selectionStart !== 'number') {
               return;
             }
@@ -108,7 +108,7 @@
 
                         var wrongPosition = maskService.getFirstWrongPosition(viewValueWithDivisors);
                         if (angular.isDefined(wrongPosition)) {
-                          setSelectionRange(wrongPosition);
+                          setSelectionRange($element, wrongPosition);
                         }
                       } else if (options.restrict === 'reject' && !validCurrentPosition) {
                         viewValue = maskService.removeWrongPositions(viewValueWithDivisors);
