@@ -83,7 +83,7 @@
 
 ### Available Patterns
 
-You can make your mask using some patterns available. If you use a pattern not specified below to construct your mask, It'll be considered a divisor. A dividor is a character used to group semantic elements, for example: "/" in dates to separate days, months and years, "-" in SSN to separate area, group and serial numbers or "." in IPv4 to create 4 groups of 8 bits.
+You can make your mask using some patterns available. If you use a pattern not specified below to construct your mask, It'll be considered a divider. A divider is a character used to group semantic elements, for example: "/" in dates to separate days, months and years, "-" in SSN to separate area, group and serial numbers or "." in IPv4 to create 4 groups of 8 bits.
 
 **Common Patterns**
    - * =====> /./
