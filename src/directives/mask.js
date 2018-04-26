@@ -126,11 +126,18 @@
 
                     // Set validity
                     if (options.validate && controller.$dirty) {
-                      if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(untouchedValue)) {
-                        controller.$setValidity('mask', true);
-                      } else {
-                        controller.$setValidity('mask', false);
-                      }
+                        var maskName;
+                        if (typeof $attrs.maskName == "undefined") {
+                          maskName = "mask";
+                        } else {
+                          maskName = $attrs.maskName;
+                        }
+
+                        if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(untouchedValue)) {
+                          controller.$setValidity(maskName, true);
+                        } else {
+                          controller.$setValidity(maskName, false);
+                        }
                     }
 
                     // Update view and model values

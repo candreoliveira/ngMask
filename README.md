@@ -153,6 +153,9 @@ You can make your mask using some patterns available. If you use a pattern not s
    - **Mask (required)**: mask definition
       - Attribute 'mask'
       - The mask for input.
+   - **MaskName**:  initial mask name is 'mask' (default: mask)
+      - Attribute 'mask-name'
+      - The mask-name for custom mask name.
    - **NgValue**: initial mask value (default: undefined)
       - Attribute 'ng-value'
       - The initial value of input.
