@@ -127,9 +127,9 @@
                     // Set validity
                     if (options.validate && controller.$dirty) {
                       if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(untouchedValue)) {
-                        controller.$setValidity('mask', true);
+                        controller.$setValidity($attrs.maskName, true);
                       } else {
-                        controller.$setValidity('mask', false);
+                        controller.$setValidity($attrs.maskName, false);
                       }
                     }
 
