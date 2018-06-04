@@ -137,6 +137,17 @@
                     if(value !== viewValueWithDivisors){
                       controller.$viewValue = angular.copy(viewValueWithDivisors);
                       controller.$render();
+                      
+                      // Implemented a fix to issue that put the caret position in the wrong place when typing 
+                      // in some devices.
+                      // 
+                      // @julitroalves
+                      // https://github.com/candreoliveira/ngMask/pull/136#issuecomment-359914674
+                      $timeout(function() {
+                          setSelectionRange(viewValueWithDivisors.length);
+                          $element[0].focus();
+                          $element[0].setSelectionRange(viewValueWithDivisors.length, viewValueWithDivisors.length + 1);
+                      });
                       // Not using $setViewValue so we don't clobber the model value and dirty the form
                       // without any kind of user interaction.
                     }
