@@ -546,8 +546,8 @@
           }
 
           for (var i=0; i<viewValueWithDivisors.length; i++){
-            var pattern = getRegex(i);
-            var value = viewValueWithDivisors.substr(0, (i+1));
+            var pattern = getRegex(0);
+            var value = viewValueWithDivisors.substr(i,1);
 
             if(pattern && !pattern.test(value)){
               pos.push(i);
