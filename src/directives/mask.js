@@ -5,7 +5,17 @@
       return {
         restrict: 'A',
         require: 'ngModel',
-        compile: function($element, $attrs) { 
+        compile: function($element, $attrs) {
+        
+          const VALID_CLASS = 'ng-valid';
+          const INVALID_CLASS = 'ng-invalid';
+          const PRISTINE_CLASS = 'ng-pristine';
+          const DIRTY_CLASS = 'ng-dirty';
+          const UNTOUCHED_CLASS = 'ng-untouched';
+          const TOUCHED_CLASS = 'ng-touched';
+          const EMPTY_CLASS = 'ng-empty';
+          const NOT_EMPTY_CLASS = 'ng-not-empty';
+        
          if (!$attrs.mask || !$attrs.ngModel) {
             $log.info('Mask and ng-model attributes are required!');
             return;
@@ -127,7 +137,13 @@
                     // Set validity
                     if (options.validate && controller.$dirty) {
                       if (fullRegex.test(viewValueWithDivisors) || controller.$isEmpty(untouchedValue)) {
-                        controller.$setValidity('mask', true);
+                        if (controller.$isEmpty(untouchedValue)) {
+                          controller.$setValidity('mask', false);
+                          controller.$$animate.removeClass(controller.$$element, NOT_EMPTY_CLASS);
+                          controller.$$animate.addClass(controller.$$element, EMPTY_CLASS);
+                        } else {
+                          controller.$setValidity('mask', true);
+                        }
                       } else {
                         controller.$setValidity('mask', false);
                       }
